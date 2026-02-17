@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Reβelδe - Pizza Delivery. Φρέσκια πίτσα και ζυμαρικά στο Κ. Σχολάρι.">
-    <meta name="theme-color" content="#211d18">
+    <meta name="theme-color" content="#fcfbf7">
+    <meta name="color-scheme" content="light">
     <link rel="icon" type="image/png" href="/logo.png">
     <title>Reβelδe | Pizza Delivery</title>
     <style>
@@ -24,6 +25,8 @@
 
         html {
             scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         body {
@@ -134,10 +137,11 @@
 
         /* Offers Section */
         .offers {
-            background-color: var(--black);
-            color: var(--white);
+            background-color: var(--white);
+            color: var(--black);
             padding: 3rem 1.5rem;
             text-align: center;
+            border-top: 1px solid rgba(33, 29, 24, 0.08);
         }
 
         .offers-title {
@@ -146,15 +150,16 @@
             text-transform: uppercase;
             letter-spacing: 0.2em;
             margin-bottom: 1.5rem;
-            color: var(--cream);
+            color: var(--black);
         }
 
         .offer-item {
             font-size: 1.1rem;
             margin-bottom: 1rem;
             padding: 1rem;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(33, 29, 24, 0.04);
             border-radius: 4px;
+            color: var(--black);
         }
 
         .offer-item:last-child {
@@ -281,9 +286,10 @@
 
         /* Location Section */
         .location {
-            background-color: var(--black);
-            color: var(--white);
+            background-color: var(--cream-dark);
+            color: var(--black);
             padding: 3rem 1.5rem;
+            border-top: 1px solid rgba(33, 29, 24, 0.08);
         }
 
         .location-inner {
@@ -298,7 +304,7 @@
             letter-spacing: 0.2em;
             margin-bottom: 2rem;
             text-align: center;
-            color: var(--cream);
+            color: var(--black);
         }
 
         .location-grid {
@@ -337,23 +343,23 @@
             width: 100%;
             height: 280px;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px dashed rgba(252, 251, 247, 0.25);
-            color: var(--cream);
+            background: rgba(33, 29, 24, 0.04);
+            border: 2px dashed rgba(33, 29, 24, 0.2);
+            color: var(--black);
             text-decoration: none;
             font-size: 0.9rem;
             transition: background 0.2s, border-color 0.2s;
         }
 
         .location-map-link:hover {
-            background: rgba(198, 189, 160, 0.12);
-            border-color: rgba(252, 251, 247, 0.45);
+            background: rgba(33, 29, 24, 0.06);
+            border-color: rgba(33, 29, 24, 0.35);
         }
 
         .location-map-link svg {
             width: 48px;
             height: 48px;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         .location-info {
@@ -380,18 +386,18 @@
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: rgba(252, 251, 247, 0.5);
+            color: rgba(33, 29, 24, 0.5);
             margin-bottom: 0.35rem;
         }
 
         .location-info-value {
             font-size: 1.05rem;
             font-weight: 600;
-            color: var(--white);
+            color: var(--black);
         }
 
         .location-info-value a {
-            color: var(--cream);
+            color: var(--accent);
             text-decoration: none;
         }
 
@@ -407,7 +413,7 @@
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: rgba(252, 251, 247, 0.5);
+            color: rgba(33, 29, 24, 0.5);
             margin-bottom: 0.75rem;
         }
 
@@ -422,7 +428,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(252, 251, 247, 0.1);
+            border-bottom: 1px solid rgba(33, 29, 24, 0.12);
             font-size: 0.95rem;
         }
 
@@ -432,38 +438,39 @@
 
         .location-min-order-area {
             font-weight: 500;
-            color: var(--white);
+            color: var(--black);
         }
 
         .location-min-order-amount {
             font-weight: 700;
-            color: var(--cream);
+            color: var(--accent);
         }
 
         /* Footer */
         .footer {
-            background-color: var(--black);
-            color: var(--white);
+            background-color: var(--white);
+            color: var(--black);
             padding: 2rem 1.5rem;
             text-align: center;
+            border-top: 1px solid rgba(33, 29, 24, 0.08);
         }
 
         .footer-phone {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: var(--cream);
+            color: var(--black);
         }
 
         .footer-address {
             font-size: 0.9rem;
-            color: rgba(252, 251, 247, 0.55);
+            color: rgba(33, 29, 24, 0.6);
             margin-bottom: 0.25rem;
         }
 
         .footer-hours {
             font-size: 0.85rem;
-            color: rgba(252, 251, 247, 0.4);
+            color: rgba(33, 29, 24, 0.5);
         }
 
         /* Sticky Call Button */
@@ -472,30 +479,32 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: var(--black);
-            padding: 0.875rem;
-            padding-bottom: calc(0.875rem + env(safe-area-inset-bottom, 0px));
+            background-color: var(--white);
+            padding: 12px;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
             display: flex;
             justify-content: center;
             z-index: 100;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid rgba(33, 29, 24, 0.08);
         }
 
         .sticky-call a {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 8px;
             background-color: var(--accent);
             color: var(--white);
             text-decoration: none;
-            padding: 0.875rem 2rem;
-            font-size: 1rem;
+            padding: 12px 24px;
+            font-size: 16px;
             font-weight: 600;
             border-radius: 4px;
             width: 100%;
-            max-width: 320px;
-            min-height: 48px;
+            max-width: 280px;
+            min-height: 44px;
+            box-sizing: border-box;
             transition: transform 0.2s ease;
         }
 
@@ -504,7 +513,7 @@
         }
 
         .footer-spacer {
-            height: 80px;
+            height: 72px;
         }
 
         @media (min-width: 769px) {
@@ -516,10 +525,36 @@
             }
         }
 
+        /* Responsive: small phones */
+        @media (max-width: 360px) {
+            .hero { padding: 1.5rem 1rem; }
+            .brand-logo { width: 90px; height: 90px; }
+            .tagline { letter-spacing: 0.15em; font-size: 0.85rem; }
+            .offers, .location, .menu { padding: 2rem 1rem; }
+            .section-title { font-size: 1.25rem; }
+            .category-title { font-size: 1.1rem; }
+            .location-map, .location-map-link { height: 220px; min-height: 220px; }
+        }
+
+        /* Responsive: phones */
         @media (max-width: 400px) {
             .drinks-grid {
                 grid-template-columns: 1fr;
             }
+            .sticky-call a { max-width: 100%; }
+        }
+
+        /* Responsive: tablets */
+        @media (min-width: 600px) and (max-width: 900px) {
+            .menu { max-width: 600px; }
+            .location-inner { max-width: 700px; }
+        }
+
+        /* Responsive: desktop */
+        @media (min-width: 1024px) {
+            .menu { max-width: 750px; padding: 4rem 2rem; }
+            .location-inner { max-width: 1000px; }
+            .offers, .location { padding: 4rem 2rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -800,7 +835,7 @@
         function renderMinimumOrders(entries) {
             var list = document.getElementById("location-min-order-list");
             if (!entries || entries.length === 0) {
-                list.innerHTML = '<div style="color:rgba(252,251,247,0.5);font-size:0.85rem;">Δεν υπάρχουν περιοχές.</div>';
+                list.innerHTML = '<div style="color:rgba(33,29,24,0.5);font-size:0.85rem;">Δεν υπάρχουν περιοχές.</div>';
                 return;
             }
             var sorted = entries.slice().sort(function(a, b) { return a.order - b.order; });
