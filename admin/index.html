@@ -731,7 +731,9 @@
                         html += '<div class="menu-item-row-desc">' + esc(item.description) + '</div>';
                     }
                     html += '</div>';
-                    html += '<div class="menu-item-row-price">' + item.price.toFixed(2) + '€</div>';
+                    var d = item.priceDelivery != null ? item.priceDelivery : item.price;
+                    var s = item.priceInStore != null ? item.priceInStore : (item.price != null ? item.price + 2 : 0);
+                    html += '<div class="menu-item-row-price">' + d.toFixed(2) + '€ / ' + s.toFixed(2) + '€</div>';
                     html += '<div class="menu-item-row-actions">';
                     html += '<button class="btn btn-outline btn-sm" onclick="window._editItem(\'' + item.id + '\')">Επεξ.</button>';
                     html += '<button class="btn btn-danger btn-sm" onclick="window._deleteItem(\'' + item.id + '\')">Διαγ.</button>';
@@ -760,8 +762,12 @@
         h += '<div class="form-group"><label>Περιγραφή</label>';
         h += '<input type="text" id="' + formId + '-desc" value="' + esc(item ? item.description || "" : "") + '"></div>';
         h += '<div class="form-row">';
-        h += '<div class="form-group"><label>Τιμή (€)</label>';
-        h += '<input type="number" step="0.01" min="0" id="' + formId + '-price" value="' + (item ? item.price : "") + '"></div>';
+        h += '<div class="form-group"><label>Τιμή παράδοσης (€)</label>';
+        h += '<input type="number" step="0.01" min="0" id="' + formId + '-priceDelivery" value="' + (item ? (item.priceDelivery != null ? item.priceDelivery : item.price) : "") + '"></div>';
+        h += '<div class="form-group"><label>Τιμή από κατάστημα (€)</label>';
+        h += '<input type="number" step="0.01" min="0" id="' + formId + '-priceInStore" value="' + (item ? (item.priceInStore != null ? item.priceInStore : (item.price != null ? item.price + 2 : "")) : "") + '"></div>';
+        h += '</div>';
+        h += '<div class="form-row">';
         h += '<div class="form-group"><label>Σειρά</label>';
         h += '<input type="number" min="1" id="' + formId + '-order" value="' + (item ? item.order : maxOrder) + '"></div>';
         h += '</div>';
@@ -797,15 +803,16 @@
         var formId = prefix + "-form-" + category;
         var name = document.getElementById(formId + "-name").value.trim();
         var desc = document.getElementById(formId + "-desc").value.trim();
-        var price = parseFloat(document.getElementById(formId + "-price").value);
+        var priceDelivery = parseFloat(document.getElementById(formId + "-priceDelivery").value);
+        var priceInStore = parseFloat(document.getElementById(formId + "-priceInStore").value);
         var order = parseInt(document.getElementById(formId + "-order").value, 10);
 
-        if (!name || isNaN(price)) {
-            showToast("Συμπληρώστε τουλάχιστον όνομα και τιμή");
+        if (!name || isNaN(priceDelivery) || isNaN(priceInStore)) {
+            showToast("Συμπληρώστε τουλάχιστον όνομα και τις δύο τιμές");
             return;
         }
 
-        var data = { category: category, name: name, description: desc || undefined, price: price, order: order || 1 };
+        var data = { category: category, name: name, description: desc || undefined, priceDelivery: priceDelivery, priceInStore: priceInStore, order: order || 1 };
 
         if (isEdit && editingItemId) {
             apiPut("/api/menu?id=" + editingItemId, data).then(function() {

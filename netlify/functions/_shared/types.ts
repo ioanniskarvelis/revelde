@@ -12,7 +12,8 @@ export interface MenuItem {
     | "drinks";
   name: string;
   description?: string;
-  price: number;
+  priceDelivery: number;
+  priceInStore: number;
   order: number;
 }
 

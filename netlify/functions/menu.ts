@@ -7,14 +7,35 @@ import type { MenuItem } from "./_shared/types.ts";
 const STORE_NAME = "menu";
 const KEY = "items";
 
-async function getItems(_context: Context): Promise<MenuItem[]> {
+function migrateItem(item: Record<string, unknown>): MenuItem {
+  const hasLegacyPrice = "price" in item && typeof item.price === "number";
+  const hasNewPrices = "priceDelivery" in item && "priceInStore" in item;
+  if (hasLegacyPrice && !hasNewPrices) {
+    const price = item.price as number;
+    return { ...item, priceDelivery: price, priceInStore: price + 2 } as MenuItem;
+  }
+  return item as MenuItem;
+}
+
+async function getItems(context: Context): Promise<MenuItem[]> {
   const store = getStore(STORE_NAME);
   const raw = await store.get(KEY);
   if (!raw) {
     await store.set(KEY, JSON.stringify(DEFAULT_MENU_ITEMS));
     return DEFAULT_MENU_ITEMS;
   }
-  return JSON.parse(raw) as MenuItem[];
+  const parsed = JSON.parse(raw) as Record<string, unknown>[];
+  const items = parsed.map(migrateItem);
+  const needsMigration = parsed.some((p) => "price" in p && !("priceDelivery" in p));
+  if (needsMigration) {
+    const migrated = items.map((item) => {
+      const { price, ...rest } = item as MenuItem & { price?: number };
+      return rest;
+    });
+    await saveItems(context, migrated);
+    return migrated;
+  }
+  return items;
 }
 
 async function saveItems(_context: Context, items: MenuItem[]): Promise<void> {

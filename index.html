@@ -186,6 +186,13 @@
             padding-bottom: 1rem;
         }
 
+        .menu-price-legend {
+            font-size: 0.85rem;
+            color: rgba(33, 29, 24, 0.6);
+            margin: -0.5rem 0 1.5rem;
+            text-align: center;
+        }
+
         .section-title::after {
             content: '';
             position: absolute;
@@ -573,6 +580,7 @@
     <!-- Menu Section -->
     <section class="menu">
         <h2 class="section-title">Μενού</h2>
+        <p class="menu-price-legend">Τιμές: Παράδοση / Από το κατάστημα</p>
         <div id="menu-list">
             <div class="loading">Φόρτωση μενού...</div>
         </div>
@@ -672,6 +680,10 @@
             return price.toFixed(2) + "€";
         }
 
+        function formatDualPrice(delivery, inStore) {
+            return (delivery != null ? delivery.toFixed(2) : "0.00") + "€/" + (inStore != null ? inStore.toFixed(2) : "0.00") + "€";
+        }
+
         function escapeHtml(str) {
             if (!str) return "";
             const d = document.createElement("div");
@@ -687,7 +699,7 @@
                 const gridHtml = sorted.map(item =>
                     '<div class="drink-item">' +
                         '<span class="drink-name">' + escapeHtml(item.name) + '</span>' +
-                        '<span class="drink-price">' + formatPrice(item.price) + '</span>' +
+                        '<span class="drink-price">' + formatDualPrice(item.priceDelivery ?? item.price, item.priceInStore ?? (item.price != null ? item.price + 2 : 0)) + '</span>' +
                     '</div>'
                 ).join("");
 
@@ -703,7 +715,7 @@
                         '<div class="menu-item-name">' + escapeHtml(item.name) + '</div>' +
                         (item.description ? '<div class="menu-item-desc">' + escapeHtml(item.description) + '</div>' : '') +
                     '</div>' +
-                    '<div class="menu-item-price">' + formatPrice(item.price) + '</div>' +
+                    '<div class="menu-item-price">' + formatDualPrice(item.priceDelivery ?? item.price, item.priceInStore ?? (item.price != null ? item.price + 2 : 0)) + '</div>' +
                 '</div>'
             ).join("");
 
