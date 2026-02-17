@@ -694,8 +694,11 @@
             return price.toFixed(2) + "€";
         }
 
-        function formatDualPrice(delivery, inStore) {
-            return (delivery != null ? delivery.toFixed(2) : "0.00") + "€/" + (inStore != null ? inStore.toFixed(2) : "0.00") + "€";
+        function formatPriceOrDual(delivery, inStore) {
+            var d = delivery != null ? delivery : 0;
+            var s = inStore != null ? inStore : 0;
+            if (d === s) return d.toFixed(2) + "€";
+            return d.toFixed(2) + "€/" + s.toFixed(2) + "€";
         }
 
         function escapeHtml(str) {
@@ -713,12 +716,12 @@
                 const gridHtml = sorted.map(item =>
                     '<div class="drink-item">' +
                         '<span class="drink-name">' + escapeHtml(item.name) + '</span>' +
-                        '<span class="drink-price">' + formatDualPrice(item.priceDelivery ?? item.price, item.priceInStore ?? (item.price != null ? item.price + 2 : 0)) + '</span>' +
+                        '<span class="drink-price">' + formatPriceOrDual(item.priceDelivery ?? item.price, item.priceInStore ?? (item.category === "pizza_32" && item.price != null ? item.price + 2 : item.price)) + '</span>' +
                     '</div>'
                 ).join("");
 
                 return '<div class="menu-category">' +
-                    '<h3 class="category-title">' + escapeHtml(label) + '<span class="category-price-label">Delivery / Σαλόνι</span></h3>' +
+                    '<h3 class="category-title">' + escapeHtml(label) + (category === "pizza_32" ? '<span class="category-price-label">Delivery / Σαλόνι</span>' : '') + '</h3>' +
                     '<div class="drinks-grid">' + gridHtml + '</div>' +
                 '</div>';
             }
@@ -729,12 +732,12 @@
                         '<div class="menu-item-name">' + escapeHtml(item.name) + '</div>' +
                         (item.description ? '<div class="menu-item-desc">' + escapeHtml(item.description) + '</div>' : '') +
                     '</div>' +
-                    '<div class="menu-item-price">' + formatDualPrice(item.priceDelivery ?? item.price, item.priceInStore ?? (item.price != null ? item.price + 2 : 0)) + '</div>' +
+                    '<div class="menu-item-price">' + formatPriceOrDual(item.priceDelivery ?? item.price, item.priceInStore ?? (item.category === "pizza_32" && item.price != null ? item.price + 2 : item.price)) + '</div>' +
                 '</div>'
             ).join("");
 
             return '<div class="menu-category">' +
-                '<h3 class="category-title">' + escapeHtml(label) + '<span class="category-price-label">Delivery / Σαλόνι</span></h3>' +
+                '<h3 class="category-title">' + escapeHtml(label) + (category === "pizza_32" ? '<span class="category-price-label">Delivery / Σαλόνι</span>' : '') + '</h3>' +
                 itemsHtml +
             '</div>';
         }

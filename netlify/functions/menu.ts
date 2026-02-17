@@ -12,7 +12,9 @@ function migrateItem(item: Record<string, unknown>): MenuItem {
   const hasNewPrices = "priceDelivery" in item && "priceInStore" in item;
   if (hasLegacyPrice && !hasNewPrices) {
     const price = item.price as number;
-    return { ...item, priceDelivery: price, priceInStore: price + 2 } as MenuItem;
+    const category = item.category as string;
+    const priceInStore = category === "pizza_32" ? price + 2 : price;
+    return { ...item, priceDelivery: price, priceInStore } as MenuItem;
   }
   return item as MenuItem;
 }
@@ -25,15 +27,25 @@ async function getItems(context: Context): Promise<MenuItem[]> {
     return DEFAULT_MENU_ITEMS;
   }
   const parsed = JSON.parse(raw) as Record<string, unknown>[];
-  const items = parsed.map(migrateItem);
-  const needsMigration = parsed.some((p) => "price" in p && !("priceDelivery" in p));
-  if (needsMigration) {
-    const migrated = items.map((item) => {
+  let items = parsed.map(migrateItem);
+  const needsLegacyMigration = parsed.some((p) => "price" in p && !("priceDelivery" in p));
+  if (needsLegacyMigration) {
+    items = items.map((item) => {
       const { price, ...rest } = item as MenuItem & { price?: number };
       return rest;
     });
-    await saveItems(context, migrated);
-    return migrated;
+    await saveItems(context, items);
+  }
+  const needsNormalizeNonPizza = items.some(
+    (i) => i.category !== "pizza_32" && i.priceDelivery !== i.priceInStore
+  );
+  if (needsNormalizeNonPizza) {
+    items = items.map((i) =>
+      i.category !== "pizza_32" && i.priceDelivery !== i.priceInStore
+        ? { ...i, priceInStore: i.priceDelivery }
+        : i
+    );
+    await saveItems(context, items);
   }
   return items;
 }

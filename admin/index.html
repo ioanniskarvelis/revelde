@@ -736,8 +736,8 @@
                     }
                     html += '</div>';
                     var d = item.priceDelivery != null ? item.priceDelivery : item.price;
-                    var s = item.priceInStore != null ? item.priceInStore : (item.price != null ? item.price + 2 : 0);
-                    html += '<div class="menu-item-row-price">' + d.toFixed(2) + '€ / ' + s.toFixed(2) + '€</div>';
+                    var s = item.priceInStore != null ? item.priceInStore : (item.category === "pizza_32" && item.price != null ? item.price + 2 : item.price);
+                    html += '<div class="menu-item-row-price">' + (d === s ? d.toFixed(2) + '€' : d.toFixed(2) + '€ / ' + s.toFixed(2) + '€') + '</div>';
                     html += '<div class="menu-item-row-actions">';
                     html += '<button class="btn btn-outline btn-sm" onclick="window._editItem(\'' + item.id + '\')">Επεξ.</button>';
                     html += '<button class="btn btn-danger btn-sm" onclick="window._deleteItem(\'' + item.id + '\')">Διαγ.</button>';
