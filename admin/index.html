@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#fcfbf7">
-    <meta name="color-scheme" content="light">
     <link rel="icon" type="image/png" href="/logo.png">
     <title>Reβelδe | Admin</title>
     <style>
@@ -23,11 +21,7 @@
             --gray-text: rgba(33,29,24,0.55);
         }
 
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-            text-size-adjust: 100%;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -123,9 +117,8 @@
         .dashboard.active { display: block; }
 
         .topbar {
-            background: var(--white);
-            color: var(--black);
-            border-bottom: 1px solid var(--gray);
+            background: var(--black);
+            color: var(--white);
             padding: 0.75rem 1.5rem;
             display: flex;
             justify-content: space-between;
@@ -153,8 +146,8 @@
 
         .btn-logout {
             background: none;
-            border: 1px solid var(--gray);
-            color: var(--black);
+            border: 1px solid rgba(252,251,247,0.3);
+            color: var(--white);
             padding: 0.4rem 1rem;
             border-radius: 4px;
             font-size: 0.8rem;
@@ -162,7 +155,7 @@
             transition: border-color 0.2s;
         }
 
-        .btn-logout:hover { border-color: var(--black); }
+        .btn-logout:hover { border-color: var(--white); }
 
         /* Tabs */
         .tabs {
@@ -461,12 +454,6 @@
         }
 
         /* Responsive */
-        @media (max-width: 360px) {
-            .login-wrap { padding: 1.5rem 1rem; }
-            .login-brand { font-size: 1.6rem; }
-            .tab-panel { padding: 1rem; }
-        }
-
         @media (max-width: 500px) {
             .form-row { flex-direction: column; gap: 0; }
             .tab { font-size: 0.78rem; padding: 0.75rem 0.4rem; }
@@ -474,10 +461,6 @@
             .menu-item-row-actions { width: 100%; justify-content: flex-end; margin-top: 0.5rem; }
             .combo-item-row { flex-wrap: wrap; }
             .combo-item-row select { flex: 1 1 100%; }
-        }
-
-        @media (min-width: 768px) {
-            .tab-panel { max-width: 800px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
