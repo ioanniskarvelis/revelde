@@ -1,6 +1,16 @@
 export interface MenuItem {
   id: string;
-  category: "pizza" | "pasta" | "salads" | "appetizers" | "drinks";
+  category:
+    | "pizza"
+    | "pizza_32"
+    | "burger"
+    | "club_sandwich"
+    | "pasta"
+    | "salads"
+    | "appetizers"
+    | "savory_crepes"
+    | "sweet_crepes"
+    | "drinks";
   name: string;
   description?: string;
   price: number;
@@ -33,16 +43,26 @@ export type CategoryKey = MenuItem["category"];
 
 export const CATEGORY_LABELS: Record<CategoryKey, string> = {
   pizza: "Πίτσες",
+  pizza_32: "Πίτσα 32cm",
+  burger: "Burger",
+  club_sandwich: "Club Sandwich",
   pasta: "Ζυμαρικά",
   salads: "Σαλάτες",
   appetizers: "Ορεκτικά",
+  savory_crepes: "Κρέπα αλμυρή",
+  sweet_crepes: "Κρέπα γλυκιά",
   drinks: "Αναψυκτικά / Ποτά",
 };
 
 export const CATEGORY_ORDER: CategoryKey[] = [
   "pizza",
+  "pizza_32",
+  "burger",
+  "club_sandwich",
   "pasta",
   "salads",
   "appetizers",
+  "savory_crepes",
+  "sweet_crepes",
   "drinks",
 ];

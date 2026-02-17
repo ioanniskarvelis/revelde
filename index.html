@@ -655,12 +655,17 @@
     </div>
 
     <script>
-        const CATEGORY_ORDER = ["pizza", "pasta", "salads", "appetizers", "drinks"];
+        const CATEGORY_ORDER = ["pizza", "pizza_32", "burger", "club_sandwich", "pasta", "salads", "appetizers", "savory_crepes", "sweet_crepes", "drinks"];
         const CATEGORY_LABELS = {
             pizza: "Πίτσες",
+            pizza_32: "Πίτσα 32cm",
+            burger: "Burger",
+            club_sandwich: "Club Sandwich",
             pasta: "Ζυμαρικά",
             salads: "Σαλάτες",
             appetizers: "Ορεκτικά",
+            savory_crepes: "Κρέπα αλμυρή",
+            sweet_crepes: "Κρέπα γλυκιά",
             drinks: "Αναψυκτικά / Ποτά"
         };
 
@@ -679,8 +684,8 @@
             const sorted = items.sort((a, b) => a.order - b.order);
             const label = CATEGORY_LABELS[category] || category;
 
-            if (category === "drinks") {
-                const drinksHtml = sorted.map(item =>
+            if (category === "drinks" || category === "savory_crepes" || category === "sweet_crepes") {
+                const gridHtml = sorted.map(item =>
                     '<div class="drink-item">' +
                         '<span class="drink-name">' + escapeHtml(item.name) + '</span>' +
                         '<span class="drink-price">' + formatPrice(item.price) + '</span>' +
@@ -689,7 +694,7 @@
 
                 return '<div class="menu-category">' +
                     '<h3 class="category-title">' + escapeHtml(label) + '</h3>' +
-                    '<div class="drinks-grid">' + drinksHtml + '</div>' +
+                    '<div class="drinks-grid">' + gridHtml + '</div>' +
                 '</div>';
             }
 
