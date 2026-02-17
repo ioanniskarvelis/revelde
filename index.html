@@ -103,12 +103,12 @@
         .hero-cta {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 6px;
             background-color: var(--accent);
             color: var(--white);
             text-decoration: none;
-            padding: 1.1rem 2.5rem;
-            font-size: 1.1rem;
+            padding: 10px 20px;
+            font-size: 14px;
             font-weight: 600;
             border-radius: 4px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -121,8 +121,8 @@
         }
 
         .hero-cta svg {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
         }
 
         .scroll-hint {
@@ -475,8 +475,8 @@
             left: 0;
             right: 0;
             background-color: var(--black);
-            padding: 12px;
-            padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+            padding: 8px;
+            padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
             display: flex;
             justify-content: center;
             z-index: 100;
@@ -487,17 +487,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             background-color: var(--accent);
             color: var(--white);
             text-decoration: none;
-            padding: 12px 24px;
-            font-size: 16px;
+            padding: 10px 20px;
+            font-size: 14px;
             font-weight: 600;
             border-radius: 4px;
             width: 100%;
-            max-width: 280px;
-            min-height: 44px;
+            max-width: 220px;
+            min-height: 40px;
             box-sizing: border-box;
             transition: transform 0.2s ease;
         }
@@ -506,8 +506,13 @@
             transform: scale(1.02);
         }
 
+        .sticky-call a svg {
+            width: 18px;
+            height: 18px;
+        }
+
         .footer-spacer {
-            height: 72px;
+            height: 60px;
         }
 
         @media (min-width: 769px) {
