@@ -1,13 +1,6 @@
 import type { MenuItem, ComboOffer, BusinessInfo, MinimumOrderEntry } from "./types.ts";
 
 export const DEFAULT_MENU_ITEMS: MenuItem[] = [
-  // Pizza
-  { id: "p1", category: "pizza", name: "Margherita", description: "Σάλτσα ντομάτας, μοτσαρέλα, φρέσκος βασιλικός", price: 7.00, order: 1 },
-  { id: "p2", category: "pizza", name: "Pepperoni", description: "Σάλτσα ντομάτας, μοτσαρέλα, πεπερόνι", price: 8.50, order: 2 },
-  { id: "p3", category: "pizza", name: "BBQ Chicken", description: "BBQ sauce, μοτσαρέλα, φιλέτο κοτόπουλο, κρεμμύδι", price: 9.00, order: 3 },
-  { id: "p4", category: "pizza", name: "Quattro Formaggi", description: "Μοτσαρέλα, gouda, παρμεζάνα, cheddar", price: 9.50, order: 4 },
-  { id: "p5", category: "pizza", name: "Prosciutto e Rucola", description: "Σάλτσα ντομάτας, μοτσαρέλα, προσούτο, ρόκα, παρμεζάνα", price: 10.00, order: 5 },
-
   // Pizza 32cm
   { id: "p32-1", category: "pizza_32", name: "Μαργαρίτα", description: "Σάλτσα ντομάτας, gouda", price: 8.00, order: 1 },
   { id: "p32-2", category: "pizza_32", name: "Gustosa", description: "Ζαμπόν, μπέικον", price: 8.50, order: 2 },

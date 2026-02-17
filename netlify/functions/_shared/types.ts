@@ -1,7 +1,6 @@
 export interface MenuItem {
   id: string;
   category:
-    | "pizza"
     | "pizza_32"
     | "burger"
     | "club_sandwich"
@@ -42,7 +41,6 @@ export interface MinimumOrderEntry {
 export type CategoryKey = MenuItem["category"];
 
 export const CATEGORY_LABELS: Record<CategoryKey, string> = {
-  pizza: "Πίτσες",
   pizza_32: "Πίτσα 32cm",
   burger: "Burger",
   club_sandwich: "Club Sandwich",
@@ -55,7 +53,6 @@ export const CATEGORY_LABELS: Record<CategoryKey, string> = {
 };
 
 export const CATEGORY_ORDER: CategoryKey[] = [
-  "pizza",
   "pizza_32",
   "burger",
   "club_sandwich",
