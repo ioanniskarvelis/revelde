@@ -550,6 +550,11 @@
                 <button class="btn btn-success" id="btn-save-info">Αποθήκευση</button>
             </div>
         </div>
+        <div class="inline-form" style="margin-top:2rem;border-color:var(--danger);">
+            <div class="inline-form-title" style="color:var(--danger);">Επαναφορά δεδομένων</div>
+            <p style="font-size:0.85rem;color:var(--gray-text);margin-bottom:1rem;">Διαγράφει όλα τα δεδομένα (μενού, προσφορές, ρυθμίσεις, ελάχιστη παραγγελία) και επαναφέρει τις προεπιλογές.</p>
+            <button class="btn btn-danger" id="btn-reset">Επαναφορά όλων</button>
+        </div>
     </div>
 </div>
 
@@ -1123,6 +1128,22 @@
             document.getElementById("set-maps").value = info.mapsEmbedUrl || "";
         }).catch(function() { showToast("Σφάλμα φόρτωσης ρυθμίσεων"); });
     }
+
+    document.getElementById("btn-reset").addEventListener("click", function() {
+        if (!confirm("Θέλετε να διαγράψετε ΟΛΑ τα δεδομένα και να επαναφέρετε τις προεπιλογές; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.")) return;
+        var btn = document.getElementById("btn-reset");
+        btn.disabled = true;
+        btn.textContent = "Επεξεργασία...";
+        apiPost("/api/reset", {}).then(function(res) {
+            showToast(res.message || "Επαναφορά ολοκληρώθηκε");
+            loadAll();
+        }).catch(function() {
+            showToast("Σφάλμα επαναφοράς");
+        }).finally(function() {
+            btn.disabled = false;
+            btn.textContent = "Επαναφορά όλων";
+        });
+    });
 
     document.getElementById("btn-save-info").addEventListener("click", function() {
         var data = {
