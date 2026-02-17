@@ -496,6 +496,7 @@
     <div class="tabs">
         <button class="tab active" data-tab="menu">Μενού</button>
         <button class="tab" data-tab="offers">Προσφορές</button>
+        <button class="tab" data-tab="minorder">Ελάχιστη παραγγελία</button>
         <button class="tab" data-tab="settings">Ρυθμίσεις</button>
     </div>
 
@@ -512,6 +513,16 @@
         </div>
         <div id="offer-form-wrap"></div>
         <div id="offers-list-admin"></div>
+    </div>
+
+    <!-- Minimum Order Tab -->
+    <div class="tab-panel" id="panel-minorder">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <h3 style="font-size:1.1rem;font-weight:700;">Ελάχιστη παραγγελία ανά περιοχή</h3>
+            <button class="btn btn-primary btn-sm" id="btn-new-minorder">+ Προσθήκη</button>
+        </div>
+        <div id="minorder-form-wrap"></div>
+        <div id="minorder-list-admin"></div>
     </div>
 
     <!-- Settings Tab -->
@@ -552,6 +563,8 @@
     var TOKEN_KEY = "revelde_token";
     var menuItems = [];
     var allOffers = [];
+    var minOrderEntries = [];
+    var editingMinOrderId = null;
     var businessInfo = {};
     var editingItemId = null;
     var editingOfferId = null;
@@ -671,6 +684,7 @@
     function loadAll() {
         loadMenu();
         loadOffers();
+        loadMinOrders();
         loadInfo();
     }
 
@@ -994,6 +1008,107 @@
         apiDelete("/api/offers?id=" + id).then(function() {
             showToast("Διαγράφηκε");
             loadOffers();
+        }).catch(function() { showToast("Σφάλμα"); });
+    };
+
+    // --- MINIMUM ORDERS ---
+    function loadMinOrders() {
+        apiGet("/api/minimum-orders").then(function(entries) {
+            minOrderEntries = entries;
+            renderMinOrdersAdmin();
+        }).catch(function() { showToast("Σφάλμα φόρτωσης ελάχιστης παραγγελίας"); });
+    }
+
+    function renderMinOrdersAdmin() {
+        var container = document.getElementById("minorder-list-admin");
+        if (minOrderEntries.length === 0) {
+            container.innerHTML = '<div style="color:var(--gray-text);font-size:0.85rem;">Δεν υπάρχουν περιοχές.</div>';
+            return;
+        }
+        var sorted = minOrderEntries.slice().sort(function(a, b) { return a.order - b.order; });
+        var html = "";
+        sorted.forEach(function(e) {
+            html += '<div class="card" style="margin-bottom:0.75rem;">';
+            html += '<div class="menu-item-row">';
+            html += '<div class="menu-item-row-info">';
+            html += '<div class="menu-item-row-name">' + esc(e.area) + '</div>';
+            html += '<div class="menu-item-row-desc">Ελάχιστη παραγγελία: ' + e.amount.toFixed(2) + '€</div>';
+            html += '</div>';
+            html += '<div class="menu-item-row-price">' + e.amount.toFixed(2) + '€</div>';
+            html += '<div class="menu-item-row-actions">';
+            html += '<button class="btn btn-outline btn-sm" onclick="window._editMinOrder(\'' + e.id + '\')">Επεξ.</button>';
+            html += '<button class="btn btn-danger btn-sm" onclick="window._deleteMinOrder(\'' + e.id + '\')">Διαγ.</button>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+        });
+        container.innerHTML = html;
+    }
+
+    function buildMinOrderForm(entry) {
+        var isEdit = !!entry;
+        editingMinOrderId = isEdit ? entry.id : null;
+        var maxOrder = minOrderEntries.length + 1;
+        var h = '<div class="inline-form">';
+        h += '<div class="inline-form-title">' + (isEdit ? "Επεξεργασία" : "Νέα περιοχή") + '</div>';
+        h += '<div class="form-group"><label>Περιοχή</label>';
+        h += '<input type="text" id="minorder-area" value="' + esc(entry ? entry.area : "") + '" placeholder="π.χ. Κάτω σχολάρι"></div>';
+        h += '<div class="form-group"><label>Ελάχιστη παραγγελία (€)</label>';
+        h += '<input type="number" step="0.01" min="0" id="minorder-amount" value="' + (entry ? entry.amount : 0) + '"></div>';
+        h += '<div class="form-group"><label>Σειρά</label>';
+        h += '<input type="number" min="1" id="minorder-order" value="' + (entry ? entry.order : maxOrder) + '"></div>';
+        h += '<div class="form-actions">';
+        h += '<button class="btn btn-success" id="btn-save-minorder">Αποθήκευση</button>';
+        h += '<button class="btn btn-outline" id="btn-cancel-minorder">Ακύρωση</button>';
+        h += '</div>';
+        h += '</div>';
+        document.getElementById("minorder-form-wrap").innerHTML = h;
+        document.getElementById("btn-save-minorder").onclick = saveMinOrder;
+        document.getElementById("btn-cancel-minorder").onclick = function() {
+            document.getElementById("minorder-form-wrap").innerHTML = "";
+            editingMinOrderId = null;
+        };
+    }
+
+    function saveMinOrder() {
+        var area = document.getElementById("minorder-area").value.trim();
+        var amount = parseFloat(document.getElementById("minorder-amount").value);
+        var order = parseInt(document.getElementById("minorder-order").value, 10) || 1;
+        if (!area || isNaN(amount)) {
+            showToast("Συμπληρώστε περιοχή και ποσό");
+            return;
+        }
+        var data = { area: area, amount: amount, order: order };
+        if (editingMinOrderId) {
+            apiPut("/api/minimum-orders?id=" + editingMinOrderId, data).then(function() {
+                document.getElementById("minorder-form-wrap").innerHTML = "";
+                editingMinOrderId = null;
+                showToast("Ενημερώθηκε");
+                loadMinOrders();
+            }).catch(function() { showToast("Σφάλμα"); });
+        } else {
+            apiPost("/api/minimum-orders", data).then(function() {
+                document.getElementById("minorder-form-wrap").innerHTML = "";
+                showToast("Προστέθηκε");
+                loadMinOrders();
+            }).catch(function() { showToast("Σφάλμα"); });
+        }
+    }
+
+    document.getElementById("btn-new-minorder").addEventListener("click", function() {
+        buildMinOrderForm(null);
+    });
+
+    window._editMinOrder = function(id) {
+        var entry = minOrderEntries.find(function(e) { return e.id === id; });
+        if (entry) buildMinOrderForm(entry);
+    };
+
+    window._deleteMinOrder = function(id) {
+        if (!confirm("Διαγραφή αυτής της περιοχής;")) return;
+        apiDelete("/api/minimum-orders?id=" + id).then(function() {
+            showToast("Διαγράφηκε");
+            loadMinOrders();
         }).catch(function() { showToast("Σφάλμα"); });
     };
 

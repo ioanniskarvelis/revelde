@@ -22,6 +22,13 @@ export interface BusinessInfo {
   mapsEmbedUrl?: string;
 }
 
+export interface MinimumOrderEntry {
+  id: string;
+  area: string;
+  amount: number;
+  order: number;
+}
+
 export type CategoryKey = MenuItem["category"];
 
 export const CATEGORY_LABELS: Record<CategoryKey, string> = {
