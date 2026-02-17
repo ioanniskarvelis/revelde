@@ -36,17 +36,6 @@ async function getItems(context: Context): Promise<MenuItem[]> {
     });
     await saveItems(context, items);
   }
-  const needsNormalizeNonPizza = items.some(
-    (i) => i.category !== "pizza_32" && i.priceDelivery !== i.priceInStore
-  );
-  if (needsNormalizeNonPizza) {
-    items = items.map((i) =>
-      i.category !== "pizza_32" && i.priceDelivery !== i.priceInStore
-        ? { ...i, priceInStore: i.priceDelivery }
-        : i
-    );
-    await saveItems(context, items);
-  }
   return items;
 }
 

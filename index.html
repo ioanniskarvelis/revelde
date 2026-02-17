@@ -721,7 +721,7 @@
                 ).join("");
 
                 return '<div class="menu-category">' +
-                    '<h3 class="category-title">' + escapeHtml(label) + (category === "pizza_32" ? '<span class="category-price-label">Delivery / Σαλόνι</span>' : '') + '</h3>' +
+                    '<h3 class="category-title">' + escapeHtml(label) + '<span class="category-price-label">Delivery / Σαλόνι</span></h3>' +
                     '<div class="drinks-grid">' + gridHtml + '</div>' +
                 '</div>';
             }
@@ -737,7 +737,7 @@
             ).join("");
 
             return '<div class="menu-category">' +
-                '<h3 class="category-title">' + escapeHtml(label) + (category === "pizza_32" ? '<span class="category-price-label">Delivery / Σαλόνι</span>' : '') + '</h3>' +
+                '<h3 class="category-title">' + escapeHtml(label) + '<span class="category-price-label">Delivery / Σαλόνι</span></h3>' +
                 itemsHtml +
             '</div>';
         }
