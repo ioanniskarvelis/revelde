@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Reβelδe - Pizza Delivery. Φρέσκια πίτσα και ζυμαρικά στο Κ. Σχολάρι.">
+    <link rel="icon" type="image/png" href="/logo.png">
     <title>Reβelδe | Pizza Delivery</title>
     <style>
         * {
@@ -46,26 +47,10 @@
         }
 
         .brand-logo {
-            width: 80px;
-            height: 80px;
-            border: 3px solid var(--black);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            font-family: Georgia, serif;
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
             margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .brand-logo::before {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            border: 1px solid var(--black);
-            border-radius: 50%;
         }
 
         .brand {
@@ -363,7 +348,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="brand-logo">R</div>
+        <img src="/logo.png" alt="Reβelδe" class="brand-logo">
         <h1 class="brand">Re<span>β</span>el<span>δ</span>e</h1>
         <p class="tagline">Pizza Delivery</p>
         
