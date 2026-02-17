@@ -9,7 +9,18 @@ export interface MenuItem {
     | "appetizers"
     | "savory_crepes"
     | "sweet_crepes"
-    | "drinks";
+    | "rofimata"
+    | "chymoi"
+    | "anapsyktika"
+    | "kryo_tsai"
+    | "dromos_tou_tsaiou"
+    | "smoothies"
+    | "granites"
+    | "myres"
+    | "krasia"
+    | "pota"
+    | "rtds"
+    | "cocktail";
   name: string;
   description?: string;
   priceDelivery: number;
@@ -50,7 +61,18 @@ export const CATEGORY_LABELS: Record<CategoryKey, string> = {
   appetizers: "Ορεκτικά",
   savory_crepes: "Κρέπα αλμυρή",
   sweet_crepes: "Κρέπα γλυκιά",
-  drinks: "Αναψυκτικά / Ποτά",
+  rofimata: "Ροφήματα",
+  chymoi: "Χυμοί",
+  anapsyktika: "Αναψυκτικά",
+  kryo_tsai: "Κρύο τσάι",
+  dromos_tou_tsaiou: "Δρόμος του τσαϊού",
+  smoothies: "Smoothies",
+  granites: "Γρανίτες",
+  myres: "Μπύρες",
+  krasia: "Κρασιά",
+  pota: "Ποτά",
+  rtds: "RTDs",
+  cocktail: "Cocktail",
 };
 
 export const CATEGORY_ORDER: CategoryKey[] = [
@@ -62,5 +84,16 @@ export const CATEGORY_ORDER: CategoryKey[] = [
   "appetizers",
   "savory_crepes",
   "sweet_crepes",
-  "drinks",
+  "rofimata",
+  "chymoi",
+  "anapsyktika",
+  "kryo_tsai",
+  "dromos_tou_tsaiou",
+  "smoothies",
+  "granites",
+  "myres",
+  "krasia",
+  "pota",
+  "rtds",
+  "cocktail",
 ];

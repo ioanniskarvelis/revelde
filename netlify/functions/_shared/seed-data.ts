@@ -99,12 +99,6 @@ export const DEFAULT_MENU_ITEMS: MenuItem[] = [
   { id: "sw12", category: "sweet_crepes", name: "Σιρόπι σοκολάτας", priceDelivery: 0.40, priceInStore: 2.40, order: 12 },
   { id: "sw13", category: "sweet_crepes", name: "Σιρόπι φράουλας", priceDelivery: 0.40, priceInStore: 2.40, order: 13 },
   { id: "sw14", category: "sweet_crepes", name: "Μπανάνα", priceDelivery: 0.80, priceInStore: 2.80, order: 14 },
-
-  // Drinks
-  { id: "d1", category: "drinks", name: "Αναψυκτικά 330ml", priceDelivery: 2.00, priceInStore: 4.00, order: 1 },
-  { id: "d2", category: "drinks", name: "Αναψυκτικά 500ml", priceDelivery: 2.50, priceInStore: 4.50, order: 2 },
-  { id: "d3", category: "drinks", name: "Αναψυκτικά 1.5L", priceDelivery: 3.00, priceInStore: 5.00, order: 3 },
-  { id: "d4", category: "drinks", name: "Μπύρα κουτάκι 330ml", priceDelivery: 2.50, priceInStore: 4.50, order: 4 },
 ];
 
 export const DEFAULT_OFFERS: ComboOffer[] = [

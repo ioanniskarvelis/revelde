@@ -666,7 +666,7 @@
     </div>
 
     <script>
-        const CATEGORY_ORDER = ["pizza_32", "burger", "club_sandwich", "pasta", "salads", "appetizers", "savory_crepes", "sweet_crepes", "drinks"];
+        const CATEGORY_ORDER = ["pizza_32", "burger", "club_sandwich", "pasta", "salads", "appetizers", "savory_crepes", "sweet_crepes", "rofimata", "chymoi", "anapsyktika", "kryo_tsai", "dromos_tou_tsaiou", "smoothies", "granites", "myres", "krasia", "pota", "rtds", "cocktail"];
         const CATEGORY_LABELS = {
             pizza_32: "Πίτσα 32cm",
             burger: "Burger",
@@ -676,7 +676,18 @@
             appetizers: "Ορεκτικά",
             savory_crepes: "Κρέπα αλμυρή",
             sweet_crepes: "Κρέπα γλυκιά",
-            drinks: "Αναψυκτικά / Ποτά"
+            rofimata: "Ροφήματα",
+            chymoi: "Χυμοί",
+            anapsyktika: "Αναψυκτικά",
+            kryo_tsai: "Κρύο τσάι",
+            dromos_tou_tsaiou: "Δρόμος του τσαϊού",
+            smoothies: "Smoothies",
+            granites: "Γρανίτες",
+            myres: "Μπύρες",
+            krasia: "Κρασιά",
+            pota: "Ποτά",
+            rtds: "RTDs",
+            cocktail: "Cocktail"
         };
 
         function formatPrice(price) {
@@ -698,7 +709,7 @@
             const sorted = items.sort((a, b) => a.order - b.order);
             const label = CATEGORY_LABELS[category] || category;
 
-            if (category === "drinks" || category === "savory_crepes" || category === "sweet_crepes") {
+            if (category === "savory_crepes" || category === "sweet_crepes" || category === "rofimata" || category === "chymoi" || category === "anapsyktika" || category === "kryo_tsai" || category === "dromos_tou_tsaiou" || category === "smoothies" || category === "granites" || category === "myres" || category === "krasia" || category === "pota" || category === "rtds" || category === "cocktail") {
                 const gridHtml = sorted.map(item =>
                     '<div class="drink-item">' +
                         '<span class="drink-name">' + escapeHtml(item.name) + '</span>' +
