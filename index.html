@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Reβelδe - Pizza Delivery. Φρέσκια πίτσα και ζυμαρικά στο Κ. Σχολάρι.">
+    <meta name="theme-color" content="#211d18">
+    <title>Reβelδe | Pizza Delivery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #c6bda0;
+            --cream-dark: #b8ae92;
+            --black: #211d18;
+            --white: #fcfbf7;
+            --accent: #c45c3e;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--cream);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+            position: relative;
+        }
+
+        .brand-logo {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: Georgia, serif;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .brand-logo::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 1px solid var(--black);
+            border-radius: 50%;
+        }
+
+        .brand {
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-family: Georgia, serif;
+        }
+
+        .brand span {
+            font-style: italic;
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(33, 29, 24, 0.55);
+            margin-bottom: 2rem;
+        }
+
+        .hero-info {
+            margin-bottom: 2.5rem;
+        }
+
+        .phone {
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .address {
+            font-size: 1rem;
+            color: rgba(33, 29, 24, 0.55);
+            margin-bottom: 0.25rem;
+        }
+
+        .hours {
+            font-size: 0.9rem;
+            color: rgba(33, 29, 24, 0.5);
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: var(--accent);
+            color: var(--white);
+            text-decoration: none;
+            padding: 1.1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(196, 92, 62, 0.3);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 92, 62, 0.4);
+        }
+
+        .hero-cta svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(33, 29, 24, 0.45);
+            font-size: 0.875rem;
+        }
+
+        /* Offers Section */
+        .offers {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .offers-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            color: var(--cream);
+        }
+
+        .offer-item {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .offer-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .offers-empty {
+            display: none;
+        }
+
+        /* Menu Section */
+        .menu {
+            padding: 4rem 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--black);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .menu-category {
+            margin-bottom: 3.5rem;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--black);
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(33, 29, 24, 0.1);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item-info {
+            flex: 1;
+            padding-right: 1rem;
+        }
+
+        .menu-item-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--black);
+        }
+
+        .menu-item-desc {
+            font-size: 0.85rem;
+            color: rgba(33, 29, 24, 0.55);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .menu-item-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--black);
+            white-space: nowrap;
+        }
+
+        /* Drinks Grid */
+        .drinks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .drink-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background-color: rgba(33, 29, 24, 0.05);
+            border-radius: 4px;
+        }
+
+        .drink-name {
+            font-size: 0.9rem;
+        }
+
+        .drink-price {
+            font-weight: 700;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(33, 29, 24, 0.5);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-phone {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--cream);
+        }
+
+        .footer-address {
+            font-size: 0.9rem;
+            color: rgba(252, 251, 247, 0.55);
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-hours {
+            font-size: 0.85rem;
+            color: rgba(252, 251, 247, 0.4);
+        }
+
+        /* Sticky Call Button */
+        .sticky-call {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--black);
+            padding: 0.875rem;
+            padding-bottom: calc(0.875rem + env(safe-area-inset-bottom, 0px));
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .sticky-call a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: var(--accent);
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 320px;
+            min-height: 48px;
+            transition: transform 0.2s ease;
+        }
+
+        .sticky-call a:hover {
+            transform: scale(1.02);
+        }
+
+        .footer-spacer {
+            height: 80px;
+        }
+
+        @media (min-width: 769px) {
+            .sticky-call {
+                display: none;
+            }
+            .footer-spacer {
+                display: none;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .drinks-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="brand-logo">R</div>
+        <h1 class="brand">Re<span>β</span>el<span>δ</span>e</h1>
+        <p class="tagline">Pizza Without Rules.</p>
+
+        <div class="hero-info">
+            <div class="phone" id="hero-phone">23920 91455</div>
+            <div class="address" id="hero-address">Κ. Σχολάρι, Οχι 5</div>
+            <div class="hours" id="hero-hours">Τρίτη - Κυριακή 17:00 - 23:00</div>
+        </div>
+
+        <a href="tel:2392091455" class="hero-cta" id="hero-cta">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Καλέστε Τώρα
+        </a>
+
+        <div class="scroll-hint">Μενού ↓</div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="offers" id="offers-section">
+        <h2 class="offers-title">Προσφορές</h2>
+        <div id="offers-list">
+            <div class="loading">Φόρτωση...</div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu">
+        <h2 class="section-title">Μενού</h2>
+        <div id="menu-list">
+            <div class="loading">Φόρτωση μενού...</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-phone" id="footer-phone">23920 91455</div>
+        <div class="footer-address" id="footer-address">Κ. Σχολάρι, Οχι 5</div>
+        <div class="footer-hours" id="footer-hours">Τρίτη - Κυριακή 17:00 - 23:00</div>
+    </footer>
+
+    <!-- Footer Spacer -->
+    <div class="footer-spacer"></div>
+
+    <!-- Sticky Call Button -->
+    <div class="sticky-call">
+        <a href="tel:2392091455" id="sticky-cta">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Καλέστε Τώρα
+        </a>
+    </div>
+
+    <script>
+        const CATEGORY_ORDER = ["pizza", "pasta", "salads", "appetizers", "drinks"];
+        const CATEGORY_LABELS = {
+            pizza: "Πίτσες",
+            pasta: "Ζυμαρικά",
+            salads: "Σαλάτες",
+            appetizers: "Ορεκτικά",
+            drinks: "Αναψυκτικά / Ποτά"
+        };
+
+        function formatPrice(price) {
+            return price.toFixed(2) + "€";
+        }
+
+        function escapeHtml(str) {
+            if (!str) return "";
+            const d = document.createElement("div");
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        function renderMenuCategory(category, items) {
+            const sorted = items.sort((a, b) => a.order - b.order);
+            const label = CATEGORY_LABELS[category] || category;
+
+            if (category === "drinks") {
+                const drinksHtml = sorted.map(item =>
+                    '<div class="drink-item">' +
+                        '<span class="drink-name">' + escapeHtml(item.name) + '</span>' +
+                        '<span class="drink-price">' + formatPrice(item.price) + '</span>' +
+                    '</div>'
+                ).join("");
+
+                return '<div class="menu-category">' +
+                    '<h3 class="category-title">' + escapeHtml(label) + '</h3>' +
+                    '<div class="drinks-grid">' + drinksHtml + '</div>' +
+                '</div>';
+            }
+
+            const itemsHtml = sorted.map(item =>
+                '<div class="menu-item">' +
+                    '<div class="menu-item-info">' +
+                        '<div class="menu-item-name">' + escapeHtml(item.name) + '</div>' +
+                        (item.description ? '<div class="menu-item-desc">' + escapeHtml(item.description) + '</div>' : '') +
+                    '</div>' +
+                    '<div class="menu-item-price">' + formatPrice(item.price) + '</div>' +
+                '</div>'
+            ).join("");
+
+            return '<div class="menu-category">' +
+                '<h3 class="category-title">' + escapeHtml(label) + '</h3>' +
+                itemsHtml +
+            '</div>';
+        }
+
+        function renderMenu(items) {
+            const grouped = {};
+            items.forEach(function(item) {
+                if (!grouped[item.category]) grouped[item.category] = [];
+                grouped[item.category].push(item);
+            });
+
+            var html = "";
+            CATEGORY_ORDER.forEach(function(cat) {
+                if (grouped[cat] && grouped[cat].length > 0) {
+                    html += renderMenuCategory(cat, grouped[cat]);
+                }
+            });
+
+            document.getElementById("menu-list").innerHTML = html || '<div class="loading">Δεν υπάρχουν προϊόντα.</div>';
+        }
+
+        function renderOffers(offers) {
+            var active = offers.filter(function(o) { return o.active; });
+            var section = document.getElementById("offers-section");
+
+            if (active.length === 0) {
+                section.style.display = "none";
+                return;
+            }
+
+            section.style.display = "";
+            var html = active.map(function(o) {
+                return '<div class="offer-item">' + escapeHtml(o.title) + '</div>';
+            }).join("");
+            document.getElementById("offers-list").innerHTML = html;
+        }
+
+        function updateInfo(info) {
+            var phoneClean = info.phone.replace(/\s/g, "");
+
+            document.getElementById("hero-phone").textContent = info.phone;
+            document.getElementById("hero-address").textContent = info.address;
+            document.getElementById("hero-hours").textContent = info.hours;
+
+            document.getElementById("footer-phone").textContent = info.phone;
+            document.getElementById("footer-address").textContent = info.address;
+            document.getElementById("footer-hours").textContent = info.hours;
+
+            document.getElementById("hero-cta").href = "tel:" + phoneClean;
+            document.getElementById("sticky-cta").href = "tel:" + phoneClean;
+        }
+
+        function loadData() {
+            fetch("/api/menu")
+                .then(function(r) { return r.json(); })
+                .then(renderMenu)
+                .catch(function() {
+                    document.getElementById("menu-list").innerHTML = '<div class="loading">Σφάλμα φόρτωσης μενού.</div>';
+                });
+
+            fetch("/api/offers")
+                .then(function(r) { return r.json(); })
+                .then(renderOffers)
+                .catch(function() {
+                    document.getElementById("offers-section").style.display = "none";
+                });
+
+            fetch("/api/info")
+                .then(function(r) { return r.json(); })
+                .then(updateInfo)
+                .catch(function() {});
+        }
+
+        loadData();
+    </script>
+
+</body>
+</html>

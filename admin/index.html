@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Reβelδe | Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --cream: #c6bda0;
+            --cream-dark: #b8ae92;
+            --black: #211d18;
+            --white: #fcfbf7;
+            --accent: #c45c3e;
+            --danger: #c0392b;
+            --success: #27ae60;
+            --gray: rgba(33,29,24,0.12);
+            --gray-text: rgba(33,29,24,0.55);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Login */
+        .login-wrap {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+        }
+
+        .login-brand {
+            font-size: 2rem;
+            font-weight: 400;
+            font-family: Georgia, serif;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-brand span { font-style: italic; }
+
+        .login-sub {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid rgba(33,29,24,0.15);
+            border-radius: 4px;
+            font-size: 1rem;
+            background: var(--white);
+            color: var(--black);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .login-form input:focus {
+            border-color: var(--accent);
+        }
+
+        .login-form button {
+            padding: 0.9rem;
+            background: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .login-form button:hover { opacity: 0.9; }
+
+        .login-error {
+            color: var(--danger);
+            font-size: 0.85rem;
+            text-align: center;
+            min-height: 1.2em;
+        }
+
+        /* Dashboard Layout */
+        .dashboard { display: none; }
+        .dashboard.active { display: block; }
+
+        .topbar {
+            background: var(--black);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-brand {
+            font-family: Georgia, serif;
+            font-size: 1.2rem;
+        }
+
+        .topbar-brand span { font-style: italic; }
+
+        .btn-logout {
+            background: none;
+            border: 1px solid rgba(252,251,247,0.3);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .btn-logout:hover { border-color: var(--white); }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: var(--white);
+            border-bottom: 2px solid var(--gray);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 0;
+            padding: 0.85rem 0.5rem;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-text);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.2s, border-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-panel { display: none; padding: 1.5rem; max-width: 700px; margin: 0 auto; }
+        .tab-panel.active { display: block; }
+
+        /* Shared Components */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.85; }
+
+        .btn-primary { background: var(--accent); color: var(--white); }
+        .btn-danger { background: var(--danger); color: var(--white); }
+        .btn-success { background: var(--success); color: var(--white); }
+        .btn-outline {
+            background: none;
+            border: 1px solid var(--gray);
+            color: var(--black);
+        }
+
+        .btn-sm { padding: 0.35rem 0.7rem; font-size: 0.75rem; }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-text);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.35rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.65rem 0.75rem;
+            border: 1px solid rgba(33,29,24,0.15);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: var(--white);
+            color: var(--black);
+            outline: none;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .form-row .form-group { flex: 1; }
+
+        .form-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Menu Items */
+        .menu-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray);
+            gap: 0.5rem;
+        }
+
+        .menu-item-row:last-child { border-bottom: none; }
+
+        .menu-item-row-info { flex: 1; min-width: 0; }
+
+        .menu-item-row-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .menu-item-row-desc {
+            font-size: 0.8rem;
+            color: var(--gray-text);
+            font-style: italic;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .menu-item-row-price {
+            font-weight: 700;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            margin: 0 0.5rem;
+        }
+
+        .menu-item-row-actions {
+            display: flex;
+            gap: 0.35rem;
+            flex-shrink: 0;
+        }
+
+        /* Offers */
+        .offer-card {
+            border: 1px solid var(--gray);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .offer-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .offer-title-text {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .offer-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .offer-badge.active { background: var(--success); color: var(--white); }
+        .offer-badge.inactive { background: var(--gray); color: var(--gray-text); }
+
+        .offer-items-list {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .offer-price {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--accent);
+        }
+
+        .offer-actions {
+            display: flex;
+            gap: 0.35rem;
+            margin-top: 0.75rem;
+        }
+
+        /* Modal / Inline Form */
+        .inline-form {
+            background: rgba(33,29,24,0.03);
+            border: 1px solid var(--gray);
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .inline-form-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        /* Combo builder */
+        .combo-item-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .combo-item-row select { flex: 2; }
+        .combo-item-row input[type="number"] { flex: 0 0 70px; }
+        .combo-item-row .btn-remove {
+            flex: 0 0 auto;
+            background: none;
+            border: none;
+            color: var(--danger);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: var(--black);
+            color: var(--white);
+            padding: 0.75rem 1.25rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Prevent iOS zoom on input focus */
+        @media (max-width: 768px) {
+            .form-group input,
+            .form-group select,
+            .form-group textarea,
+            .login-form input {
+                font-size: 16px;
+            }
+            .combo-item-row select,
+            .combo-item-row input {
+                font-size: 16px;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .form-row { flex-direction: column; gap: 0; }
+            .tab { font-size: 0.78rem; padding: 0.75rem 0.4rem; }
+            .menu-item-row { flex-wrap: wrap; }
+            .menu-item-row-actions { width: 100%; justify-content: flex-end; margin-top: 0.5rem; }
+            .combo-item-row { flex-wrap: wrap; }
+            .combo-item-row select { flex: 1 1 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div class="login-wrap" id="login-screen">
+    <div class="login-brand">Re<span>β</span>el<span>δ</span>e</div>
+    <div class="login-sub">Admin Panel</div>
+    <form class="login-form" id="login-form">
+        <input type="text" id="login-user" placeholder="Username" autocomplete="username" required>
+        <input type="password" id="login-pass" placeholder="Password" autocomplete="current-password" required>
+        <button type="submit">Σύνδεση</button>
+        <div class="login-error" id="login-error"></div>
+    </form>
+</div>
+
+<!-- Dashboard -->
+<div class="dashboard" id="dashboard">
+    <div class="topbar">
+        <div class="topbar-brand">Re<span>β</span>el<span>δ</span>e Admin</div>
+        <button class="btn-logout" id="btn-logout">Αποσύνδεση</button>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" data-tab="menu">Μενού</button>
+        <button class="tab" data-tab="offers">Προσφορές</button>
+        <button class="tab" data-tab="settings">Ρυθμίσεις</button>
+    </div>
+
+    <!-- Menu Tab -->
+    <div class="tab-panel active" id="panel-menu">
+        <div id="menu-categories"></div>
+    </div>
+
+    <!-- Offers Tab -->
+    <div class="tab-panel" id="panel-offers">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <h3 style="font-size:1.1rem;font-weight:700;">Προσφορές</h3>
+            <button class="btn btn-primary btn-sm" id="btn-new-offer">+ Νέα</button>
+        </div>
+        <div id="offer-form-wrap"></div>
+        <div id="offers-list-admin"></div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div class="tab-panel" id="panel-settings">
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;">Στοιχεία Επιχείρησης</h3>
+        <div class="inline-form" id="settings-form">
+            <div class="form-group">
+                <label>Τηλέφωνο</label>
+                <input type="text" id="set-phone">
+            </div>
+            <div class="form-group">
+                <label>Διεύθυνση</label>
+                <input type="text" id="set-address">
+            </div>
+            <div class="form-group">
+                <label>Ωράριο</label>
+                <input type="text" id="set-hours">
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success" id="btn-save-info">Αποθήκευση</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+    "use strict";
+
+    var TOKEN_KEY = "revelde_token";
+    var menuItems = [];
+    var allOffers = [];
+    var businessInfo = {};
+    var editingItemId = null;
+    var editingOfferId = null;
+
+    var CATEGORIES = ["pizza", "pasta", "salads", "appetizers", "drinks"];
+    var CAT_LABELS = {
+        pizza: "Πίτσες", pasta: "Ζυμαρικά", salads: "Σαλάτες",
+        appetizers: "Ορεκτικά", drinks: "Αναψυκτικά / Ποτά"
+    };
+
+    // --- Utility ---
+    function getToken() { return localStorage.getItem(TOKEN_KEY); }
+    function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
+    function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+
+    function authHeaders() {
+        return { "Content-Type": "application/json", "Authorization": "Bearer " + getToken() };
+    }
+
+    function esc(s) {
+        if (!s) return "";
+        var d = document.createElement("div");
+        d.textContent = s;
+        return d.innerHTML;
+    }
+
+    function showToast(msg) {
+        var t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(function() { t.classList.remove("show"); }, 2500);
+    }
+
+    // --- API ---
+    function apiGet(url) {
+        return fetch(url, { headers: authHeaders() }).then(function(r) { return r.json(); });
+    }
+
+    function apiPost(url, data) {
+        return fetch(url, { method: "POST", headers: authHeaders(), body: JSON.stringify(data) })
+            .then(function(r) { return r.json(); });
+    }
+
+    function apiPut(url, data) {
+        return fetch(url, { method: "PUT", headers: authHeaders(), body: JSON.stringify(data) })
+            .then(function(r) { return r.json(); });
+    }
+
+    function apiDelete(url) {
+        return fetch(url, { method: "DELETE", headers: authHeaders() })
+            .then(function(r) { return r.json(); });
+    }
+
+    // --- Auth ---
+    function checkAuth() {
+        var token = getToken();
+        if (token) {
+            showDashboard();
+        } else {
+            showLogin();
+        }
+    }
+
+    function showLogin() {
+        document.getElementById("login-screen").style.display = "";
+        document.getElementById("dashboard").classList.remove("active");
+    }
+
+    function showDashboard() {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("dashboard").classList.add("active");
+        loadAll();
+    }
+
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        var user = document.getElementById("login-user").value.trim();
+        var pass = document.getElementById("login-pass").value;
+        var errEl = document.getElementById("login-error");
+        errEl.textContent = "";
+
+        fetch("/api/auth", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: user, password: pass })
+        })
+        .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+        .then(function(res) {
+            if (!res.ok) {
+                errEl.textContent = res.data.error || "Σφάλμα σύνδεσης";
+                return;
+            }
+            setToken(res.data.token);
+            showDashboard();
+        })
+        .catch(function() {
+            errEl.textContent = "Σφάλμα δικτύου";
+        });
+    });
+
+    document.getElementById("btn-logout").addEventListener("click", function() {
+        clearToken();
+        showLogin();
+    });
+
+    // --- Tabs ---
+    document.querySelectorAll(".tab").forEach(function(tab) {
+        tab.addEventListener("click", function() {
+            document.querySelectorAll(".tab").forEach(function(t) { t.classList.remove("active"); });
+            document.querySelectorAll(".tab-panel").forEach(function(p) { p.classList.remove("active"); });
+            tab.classList.add("active");
+            document.getElementById("panel-" + tab.dataset.tab).classList.add("active");
+        });
+    });
+
+    // --- Load All Data ---
+    function loadAll() {
+        loadMenu();
+        loadOffers();
+        loadInfo();
+    }
+
+    // --- MENU ---
+    function loadMenu() {
+        apiGet("/api/menu").then(function(items) {
+            menuItems = items;
+            renderMenuAdmin();
+        }).catch(function() {
+            showToast("Σφάλμα φόρτωσης μενού");
+        });
+    }
+
+    function renderMenuAdmin() {
+        var container = document.getElementById("menu-categories");
+        var html = "";
+
+        CATEGORIES.forEach(function(cat) {
+            var catItems = menuItems
+                .filter(function(i) { return i.category === cat; })
+                .sort(function(a, b) { return a.order - b.order; });
+
+            html += '<div class="card">';
+            html += '<div class="card-header">';
+            html += '<div class="card-title">' + esc(CAT_LABELS[cat]) + '</div>';
+            html += '<button class="btn btn-primary btn-sm" onclick="window._addItem(\'' + cat + '\')">+ Προσθήκη</button>';
+            html += '</div>';
+            html += '<div id="add-form-' + cat + '"></div>';
+
+            if (catItems.length === 0) {
+                html += '<div style="color:var(--gray-text);font-size:0.85rem;padding:0.5rem 0;">Δεν υπάρχουν προϊόντα.</div>';
+            } else {
+                catItems.forEach(function(item) {
+                    html += '<div class="menu-item-row">';
+                    html += '<div class="menu-item-row-info">';
+                    html += '<div class="menu-item-row-name">' + esc(item.name) + '</div>';
+                    if (item.description) {
+                        html += '<div class="menu-item-row-desc">' + esc(item.description) + '</div>';
+                    }
+                    html += '</div>';
+                    html += '<div class="menu-item-row-price">' + item.price.toFixed(2) + '€</div>';
+                    html += '<div class="menu-item-row-actions">';
+                    html += '<button class="btn btn-outline btn-sm" onclick="window._editItem(\'' + item.id + '\')">Επεξ.</button>';
+                    html += '<button class="btn btn-danger btn-sm" onclick="window._deleteItem(\'' + item.id + '\')">Διαγ.</button>';
+                    html += '</div>';
+                    html += '</div>';
+                });
+            }
+
+            html += '<div id="edit-form-' + cat + '"></div>';
+            html += '</div>';
+        });
+
+        container.innerHTML = html;
+    }
+
+    function buildItemForm(category, item) {
+        var isEdit = !!item;
+        var prefix = isEdit ? "edit" : "add";
+        var formId = prefix + "-form-" + category;
+        var maxOrder = menuItems.filter(function(i) { return i.category === category; }).length + 1;
+
+        var h = '<div class="inline-form">';
+        h += '<div class="inline-form-title">' + (isEdit ? "Επεξεργασία" : "Νέο Προϊόν") + '</div>';
+        h += '<div class="form-group"><label>Όνομα</label>';
+        h += '<input type="text" id="' + formId + '-name" value="' + esc(item ? item.name : "") + '"></div>';
+        h += '<div class="form-group"><label>Περιγραφή</label>';
+        h += '<input type="text" id="' + formId + '-desc" value="' + esc(item ? item.description || "" : "") + '"></div>';
+        h += '<div class="form-row">';
+        h += '<div class="form-group"><label>Τιμή (€)</label>';
+        h += '<input type="number" step="0.01" min="0" id="' + formId + '-price" value="' + (item ? item.price : "") + '"></div>';
+        h += '<div class="form-group"><label>Σειρά</label>';
+        h += '<input type="number" min="1" id="' + formId + '-order" value="' + (item ? item.order : maxOrder) + '"></div>';
+        h += '</div>';
+        h += '<div class="form-actions">';
+        h += '<button class="btn btn-success" onclick="window._saveItem(\'' + category + '\', ' + (isEdit ? "true" : "false") + ')">Αποθήκευση</button>';
+        h += '<button class="btn btn-outline" onclick="window._cancelItemForm(\'' + category + '\', ' + (isEdit ? "true" : "false") + ')">Ακύρωση</button>';
+        h += '</div>';
+        h += '</div>';
+        return h;
+    }
+
+    window._addItem = function(category) {
+        editingItemId = null;
+        document.getElementById("add-form-" + category).innerHTML = buildItemForm(category, null);
+    };
+
+    window._editItem = function(id) {
+        var item = menuItems.find(function(i) { return i.id === id; });
+        if (!item) return;
+        editingItemId = id;
+        var cat = item.category;
+        document.getElementById("edit-form-" + cat).innerHTML = buildItemForm(cat, item);
+    };
+
+    window._cancelItemForm = function(category, isEdit) {
+        var prefix = isEdit ? "edit" : "add";
+        document.getElementById(prefix + "-form-" + category).innerHTML = "";
+        if (isEdit) editingItemId = null;
+    };
+
+    window._saveItem = function(category, isEdit) {
+        var prefix = isEdit ? "edit" : "add";
+        var formId = prefix + "-form-" + category;
+        var name = document.getElementById(formId + "-name").value.trim();
+        var desc = document.getElementById(formId + "-desc").value.trim();
+        var price = parseFloat(document.getElementById(formId + "-price").value);
+        var order = parseInt(document.getElementById(formId + "-order").value, 10);
+
+        if (!name || isNaN(price)) {
+            showToast("Συμπληρώστε τουλάχιστον όνομα και τιμή");
+            return;
+        }
+
+        var data = { category: category, name: name, description: desc || undefined, price: price, order: order || 1 };
+
+        if (isEdit && editingItemId) {
+            apiPut("/api/menu?id=" + editingItemId, data).then(function() {
+                editingItemId = null;
+                showToast("Ενημερώθηκε");
+                loadMenu();
+            }).catch(function() { showToast("Σφάλμα αποθήκευσης"); });
+        } else {
+            apiPost("/api/menu", data).then(function() {
+                showToast("Προστέθηκε");
+                loadMenu();
+            }).catch(function() { showToast("Σφάλμα αποθήκευσης"); });
+        }
+    };
+
+    window._deleteItem = function(id) {
+        if (!confirm("Διαγραφή αυτού του προϊόντος;")) return;
+        apiDelete("/api/menu?id=" + id).then(function() {
+            showToast("Διαγράφηκε");
+            loadMenu();
+        }).catch(function() { showToast("Σφάλμα διαγραφής"); });
+    };
+
+    // --- OFFERS ---
+    function loadOffers() {
+        apiGet("/api/offers").then(function(offers) {
+            allOffers = offers;
+            renderOffersAdmin();
+        }).catch(function() {
+            showToast("Σφάλμα φόρτωσης προσφορών");
+        });
+    }
+
+    function renderOffersAdmin() {
+        var container = document.getElementById("offers-list-admin");
+        if (allOffers.length === 0) {
+            container.innerHTML = '<div style="color:var(--gray-text);font-size:0.85rem;">Δεν υπάρχουν προσφορές.</div>';
+            return;
+        }
+
+        var html = "";
+        allOffers.forEach(function(offer) {
+            html += '<div class="offer-card">';
+            html += '<div class="offer-card-header">';
+            html += '<div class="offer-title-text">' + esc(offer.title) + '</div>';
+            html += '<span class="offer-badge ' + (offer.active ? "active" : "inactive") + '">';
+            html += offer.active ? "Ενεργή" : "Ανενεργή";
+            html += '</span>';
+            html += '</div>';
+
+            if (offer.items && offer.items.length > 0) {
+                html += '<div class="offer-items-list">';
+                offer.items.forEach(function(oi) {
+                    html += esc(oi.menuItemName) + ' x' + oi.quantity + '<br>';
+                });
+                html += '</div>';
+            }
+
+            if (offer.bundlePrice > 0) {
+                html += '<div class="offer-price">Τιμή πακέτου: ' + offer.bundlePrice.toFixed(2) + '€</div>';
+            }
+
+            html += '<div class="offer-actions">';
+            html += '<button class="btn btn-outline btn-sm" onclick="window._editOffer(\'' + offer.id + '\')">Επεξ.</button>';
+            html += '<button class="btn btn-sm" style="background:' + (offer.active ? "var(--gray-text)" : "var(--success)") + ';color:var(--white);" onclick="window._toggleOffer(\'' + offer.id + '\')">';
+            html += offer.active ? "Απενεργοποίηση" : "Ενεργοποίηση";
+            html += '</button>';
+            html += '<button class="btn btn-danger btn-sm" onclick="window._deleteOffer(\'' + offer.id + '\')">Διαγ.</button>';
+            html += '</div>';
+            html += '</div>';
+        });
+
+        container.innerHTML = html;
+    }
+
+    function buildOfferForm(offer) {
+        var isEdit = !!offer;
+        editingOfferId = isEdit ? offer.id : null;
+        var comboItems = isEdit && offer.items ? offer.items : [];
+
+        var h = '<div class="inline-form">';
+        h += '<div class="inline-form-title">' + (isEdit ? "Επεξεργασία Προσφοράς" : "Νέα Προσφορά") + '</div>';
+        h += '<div class="form-group"><label>Τίτλος</label>';
+        h += '<input type="text" id="offer-title" value="' + esc(offer ? offer.title : "") + '"></div>';
+        h += '<div class="form-group"><label>Τιμή Πακέτου (€) - 0 αν δεν ισχύει</label>';
+        h += '<input type="number" step="0.01" min="0" id="offer-price" value="' + (offer ? offer.bundlePrice : 0) + '"></div>';
+        h += '<div class="form-group"><label>Προϊόντα Combo</label>';
+        h += '<div id="combo-items-list"></div>';
+        h += '<button class="btn btn-outline btn-sm" onclick="window._addComboRow()" style="margin-top:0.5rem;">+ Προσθήκη Προϊόντος</button>';
+        h += '</div>';
+        h += '<div class="form-actions">';
+        h += '<button class="btn btn-success" onclick="window._saveOffer(' + (isEdit ? "true" : "false") + ')">Αποθήκευση</button>';
+        h += '<button class="btn btn-outline" onclick="window._cancelOfferForm()">Ακύρωση</button>';
+        h += '</div>';
+        h += '</div>';
+
+        document.getElementById("offer-form-wrap").innerHTML = h;
+
+        var listEl = document.getElementById("combo-items-list");
+        if (comboItems.length > 0) {
+            comboItems.forEach(function(ci) {
+                appendComboRow(listEl, ci.menuItemId, ci.quantity);
+            });
+        }
+    }
+
+    function appendComboRow(container, selectedId, qty) {
+        var row = document.createElement("div");
+        row.className = "combo-item-row";
+
+        var sel = document.createElement("select");
+        sel.innerHTML = '<option value="">-- Επιλογή --</option>';
+        menuItems.forEach(function(item) {
+            var opt = document.createElement("option");
+            opt.value = item.id;
+            opt.textContent = item.name + " (" + CAT_LABELS[item.category] + ")";
+            if (item.id === selectedId) opt.selected = true;
+            sel.appendChild(opt);
+        });
+
+        var inp = document.createElement("input");
+        inp.type = "number";
+        inp.min = "1";
+        inp.value = qty || 1;
+        inp.placeholder = "Ποσ.";
+
+        var removeBtn = document.createElement("button");
+        removeBtn.className = "btn-remove";
+        removeBtn.textContent = "×";
+        removeBtn.onclick = function() { row.remove(); };
+
+        row.appendChild(sel);
+        row.appendChild(inp);
+        row.appendChild(removeBtn);
+        container.appendChild(row);
+    }
+
+    window._addComboRow = function() {
+        appendComboRow(document.getElementById("combo-items-list"), "", 1);
+    };
+
+    document.getElementById("btn-new-offer").addEventListener("click", function() {
+        buildOfferForm(null);
+    });
+
+    window._editOffer = function(id) {
+        var offer = allOffers.find(function(o) { return o.id === id; });
+        if (offer) buildOfferForm(offer);
+    };
+
+    window._cancelOfferForm = function() {
+        document.getElementById("offer-form-wrap").innerHTML = "";
+        editingOfferId = null;
+    };
+
+    window._saveOffer = function(isEdit) {
+        var title = document.getElementById("offer-title").value.trim();
+        var price = parseFloat(document.getElementById("offer-price").value) || 0;
+
+        if (!title) { showToast("Συμπληρώστε τίτλο"); return; }
+
+        var comboRows = document.querySelectorAll("#combo-items-list .combo-item-row");
+        var items = [];
+        comboRows.forEach(function(row) {
+            var selEl = row.querySelector("select");
+            var qtyEl = row.querySelector("input[type='number']");
+            if (selEl.value) {
+                var mi = menuItems.find(function(i) { return i.id === selEl.value; });
+                items.push({
+                    menuItemId: selEl.value,
+                    menuItemName: mi ? mi.name : "Unknown",
+                    quantity: parseInt(qtyEl.value, 10) || 1
+                });
+            }
+        });
+
+        var data = { title: title, items: items, bundlePrice: price, active: true };
+
+        if (isEdit && editingOfferId) {
+            apiPut("/api/offers?id=" + editingOfferId, data).then(function() {
+                editingOfferId = null;
+                document.getElementById("offer-form-wrap").innerHTML = "";
+                showToast("Ενημερώθηκε");
+                loadOffers();
+            }).catch(function() { showToast("Σφάλμα"); });
+        } else {
+            apiPost("/api/offers", data).then(function() {
+                document.getElementById("offer-form-wrap").innerHTML = "";
+                showToast("Δημιουργήθηκε");
+                loadOffers();
+            }).catch(function() { showToast("Σφάλμα"); });
+        }
+    };
+
+    window._toggleOffer = function(id) {
+        var offer = allOffers.find(function(o) { return o.id === id; });
+        if (!offer) return;
+        apiPut("/api/offers?id=" + id, { active: !offer.active }).then(function() {
+            showToast(offer.active ? "Απενεργοποιήθηκε" : "Ενεργοποιήθηκε");
+            loadOffers();
+        }).catch(function() { showToast("Σφάλμα"); });
+    };
+
+    window._deleteOffer = function(id) {
+        if (!confirm("Διαγραφή αυτής της προσφοράς;")) return;
+        apiDelete("/api/offers?id=" + id).then(function() {
+            showToast("Διαγράφηκε");
+            loadOffers();
+        }).catch(function() { showToast("Σφάλμα"); });
+    };
+
+    // --- SETTINGS ---
+    function loadInfo() {
+        apiGet("/api/info").then(function(info) {
+            businessInfo = info;
+            document.getElementById("set-phone").value = info.phone || "";
+            document.getElementById("set-address").value = info.address || "";
+            document.getElementById("set-hours").value = info.hours || "";
+        }).catch(function() { showToast("Σφάλμα φόρτωσης ρυθμίσεων"); });
+    }
+
+    document.getElementById("btn-save-info").addEventListener("click", function() {
+        var data = {
+            phone: document.getElementById("set-phone").value.trim(),
+            address: document.getElementById("set-address").value.trim(),
+            hours: document.getElementById("set-hours").value.trim()
+        };
+
+        if (!data.phone || !data.address || !data.hours) {
+            showToast("Συμπληρώστε όλα τα πεδία");
+            return;
+        }
+
+        apiPut("/api/info", data).then(function(res) {
+            if (res.error) {
+                showToast(res.error);
+                return;
+            }
+            businessInfo = data;
+            showToast("Αποθηκεύτηκε");
+        }).catch(function() { showToast("Σφάλμα αποθήκευσης"); });
+    });
+
+    // --- Init ---
+    checkAuth();
+
+})();
+</script>
+
+</body>
+</html>

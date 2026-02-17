@@ -1,0 +1,15 @@
+{
+  "name": "revelde",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reβelδe - Pizza Delivery website with admin dashboard",
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0",
+    "@netlify/functions": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}
