@@ -19,6 +19,7 @@ export interface BusinessInfo {
   phone: string;
   address: string;
   hours: string;
+  mapsEmbedUrl?: string;
 }
 
 export type CategoryKey = MenuItem["category"];

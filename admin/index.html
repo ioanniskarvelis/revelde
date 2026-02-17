@@ -530,6 +530,11 @@
                 <label>Ωράριο</label>
                 <input type="text" id="set-hours">
             </div>
+            <div class="form-group">
+                <label>Google Maps Embed URL (προαιρετικό)</label>
+                <input type="url" id="set-maps" placeholder="https://www.google.com/maps/embed?pb=...">
+                <small style="display:block;margin-top:0.35rem;font-size:0.75rem;color:var(--gray-text);">Από Google Maps: Share → Embed a map → Αντιγραφή src του iframe</small>
+            </div>
             <div class="form-actions">
                 <button class="btn btn-success" id="btn-save-info">Αποθήκευση</button>
             </div>
@@ -999,6 +1004,7 @@
             document.getElementById("set-phone").value = info.phone || "";
             document.getElementById("set-address").value = info.address || "";
             document.getElementById("set-hours").value = info.hours || "";
+            document.getElementById("set-maps").value = info.mapsEmbedUrl || "";
         }).catch(function() { showToast("Σφάλμα φόρτωσης ρυθμίσεων"); });
     }
 
@@ -1006,7 +1012,8 @@
         var data = {
             phone: document.getElementById("set-phone").value.trim(),
             address: document.getElementById("set-address").value.trim(),
-            hours: document.getElementById("set-hours").value.trim()
+            hours: document.getElementById("set-hours").value.trim(),
+            mapsEmbedUrl: document.getElementById("set-maps").value.trim()
         };
 
         if (!data.phone || !data.address || !data.hours) {

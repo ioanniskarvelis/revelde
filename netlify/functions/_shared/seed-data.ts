@@ -53,4 +53,5 @@ export const DEFAULT_BUSINESS_INFO: BusinessInfo = {
   phone: "23920 91455",
   address: "Κ. Σχολάρι, Οχι 5",
   hours: "Τρίτη - Κυριακή 17:00 - 23:00",
+  mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.8563626315936!2d23.02620497583847!3d40.43417937143677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a86b689b3117eb%3A0xf33e77d9ba74211f!2sRE%CE%92EL%CE%94E%20Rebelde%20espresso%20and%20cocktails!5e0!3m2!1sen!2sgr!4v1771347413554!5m2!1sen!2sgr",
 };
