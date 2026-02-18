@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Reβelδe - Delivery και Σαλόνι. Φρέσκια πίτσα και ζυμαρικά στο Κ. Σχολάρι.">
+    <meta name="theme-color" content="#211d18">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <title>Reβelδe | Μενού</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #c6bda0;
+            --cream-dark: #b8ae92;
+            --black: #211d18;
+            --white: #fcfbf7;
+            --accent: #c45c3e;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--cream);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+            position: relative;
+        }
+
+        .brand-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+        }
+
+        .brand {
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-family: Georgia, serif;
+        }
+
+        .brand span {
+            font-style: italic;
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(33, 29, 24, 0.55);
+            margin-bottom: 2rem;
+        }
+
+        .hero-info {
+            margin-bottom: 2.5rem;
+        }
+
+        .phone {
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .address {
+            font-size: 1rem;
+            color: rgba(33, 29, 24, 0.55);
+            margin-bottom: 0.25rem;
+        }
+
+        .hours {
+            font-size: 0.9rem;
+            color: rgba(33, 29, 24, 0.5);
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--accent);
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(196, 92, 62, 0.3);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 92, 62, 0.4);
+        }
+
+        .hero-cta svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .hero-view-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .view-link {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--black);
+            border: 1px solid rgba(33, 29, 24, 0.25);
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: rgba(252, 251, 247, 0.35);
+        }
+
+        .view-link.active {
+            background: var(--black);
+            color: var(--cream);
+            border-color: var(--black);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(33, 29, 24, 0.45);
+            font-size: 0.875rem;
+        }
+
+        .offers {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .offers-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            color: var(--cream);
+        }
+
+        .offer-item {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .offer-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu {
+            padding: 4rem 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--black);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .menu-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1.25rem 0 2rem;
+        }
+
+        .menu-filter-btn {
+            border: 1px solid rgba(33, 29, 24, 0.2);
+            background: rgba(252, 251, 247, 0.7);
+            color: var(--black);
+            border-radius: 999px;
+            padding: 0.45rem 0.8rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .menu-filter-btn.active {
+            background: var(--black);
+            color: var(--cream);
+            border-color: var(--black);
+        }
+
+        .menu-category {
+            margin-bottom: 3.5rem;
+        }
+
+        .category-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--black);
+        }
+
+        .category-price-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0.05em;
+            color: rgba(33, 29, 24, 0.6);
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(33, 29, 24, 0.1);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item-info {
+            flex: 1;
+            padding-right: 1rem;
+        }
+
+        .menu-item-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--black);
+        }
+
+        .menu-item-desc {
+            font-size: 0.85rem;
+            color: rgba(33, 29, 24, 0.55);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .menu-item-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--black);
+            white-space: nowrap;
+        }
+
+        .drinks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .drink-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background-color: rgba(33, 29, 24, 0.05);
+            border-radius: 4px;
+        }
+
+        .drink-name {
+            font-size: 0.9rem;
+        }
+
+        .drink-price {
+            font-weight: 700;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(33, 29, 24, 0.5);
+            font-size: 0.95rem;
+        }
+
+        .location {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 1.5rem;
+        }
+
+        .location-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .location-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--cream);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 600px) {
+            .location-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .location-map-wrap {
+            width: 100%;
+            min-height: 280px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .location-map {
+            width: 100%;
+            height: 280px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .location-map-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            height: 280px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed rgba(252, 251, 247, 0.25);
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .location-map-link:hover {
+            background: rgba(198, 189, 160, 0.12);
+            border-color: rgba(252, 251, 247, 0.45);
+        }
+
+        .location-map-link svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.7;
+        }
+
+        .location-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .location-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .location-info-item svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            opacity: 0.7;
+        }
+
+        .location-info-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(252, 251, 247, 0.5);
+            margin-bottom: 0.35rem;
+        }
+
+        .location-info-value {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .location-info-value a {
+            color: var(--cream);
+            text-decoration: none;
+        }
+
+        .location-info-value a:hover {
+            text-decoration: underline;
+        }
+
+        .location-min-order {
+            margin-bottom: 2rem;
+        }
+
+        .location-min-order-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(252, 251, 247, 0.5);
+            margin-bottom: 0.75rem;
+        }
+
+        .location-min-order-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .location-min-order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(252, 251, 247, 0.1);
+            font-size: 0.95rem;
+        }
+
+        .location-min-order-item:last-child {
+            border-bottom: none;
+        }
+
+        .location-min-order-area {
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .location-min-order-amount {
+            font-weight: 700;
+            color: var(--cream);
+        }
+
+        .footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-phone {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--cream);
+        }
+
+        .footer-address {
+            font-size: 0.9rem;
+            color: rgba(252, 251, 247, 0.55);
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-hours {
+            font-size: 0.85rem;
+            color: rgba(252, 251, 247, 0.4);
+        }
+
+        .sticky-call {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--black);
+            padding: 8px;
+            padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .sticky-call a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background-color: var(--accent);
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 220px;
+            min-height: 40px;
+            box-sizing: border-box;
+            transition: transform 0.2s ease;
+        }
+
+        .sticky-call a:hover {
+            transform: scale(1.02);
+        }
+
+        .sticky-call a svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .footer-spacer {
+            height: 60px;
+        }
+
+        @media (min-width: 769px) {
+            .sticky-call {
+                display: none;
+            }
+
+            .footer-spacer {
+                display: none;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .drinks-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <img src="/logo.png" alt="Reβelδe" class="brand-logo">
+        <h1 class="brand">Re<span>β</span>el<span>δ</span>e</h1>
+        <p class="tagline">Pizza Without Rules.</p>
+
+        <div class="hero-info">
+            <div class="phone" id="hero-phone">23920 91455</div>
+            <div class="address" id="hero-address">Κ. Σχολάρι, Οχι 5</div>
+            <div class="hours" id="hero-hours">Τρίτη - Κυριακή 17:00 - 23:00</div>
+        </div>
+
+        <a href="tel:2392091455" class="hero-cta" id="hero-cta">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Καλέστε Τώρα
+        </a>
+
+        <div class="hero-view-links">
+            <a class="view-link" id="view-delivery" href="/delivery">Delivery</a>
+            <a class="view-link" id="view-salon" href="/salon">Salon</a>
+        </div>
+
+        <div class="scroll-hint">Μενού ↓</div>
+    </section>
+
+    <section class="offers" id="offers-section">
+        <h2 class="offers-title">Προσφορές</h2>
+        <div id="offers-list">
+            <div class="loading">Φόρτωση...</div>
+        </div>
+    </section>
+
+    <section class="menu">
+        <h2 class="section-title">Μενού</h2>
+        <div class="menu-filter" id="category-filter">
+            <div class="loading" style="padding:0.5rem 0;">Φόρτωση κατηγοριών...</div>
+        </div>
+        <div id="menu-list">
+            <div class="loading">Φόρτωση μενού...</div>
+        </div>
+    </section>
+
+    <section class="location" id="location-section">
+        <div class="location-inner">
+            <h2 class="location-title">Βρείτε μας</h2>
+            <div class="location-grid">
+                <div class="location-map-wrap">
+                    <div id="location-map-container">
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="location-map-link" id="location-map-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            Άνοιγμα στο Google Maps
+                        </a>
+                    </div>
+                </div>
+                <div class="location-info">
+                    <div class="location-min-order">
+                        <div class="location-min-order-title">Ελάχιστη παραγγελία</div>
+                        <div class="location-min-order-list" id="location-min-order-list">
+                            <div class="loading" style="padding:0.5rem 0;font-size:0.85rem;">Φόρτωση...</div>
+                        </div>
+                    </div>
+                    <div class="location-info-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        <div>
+                            <div class="location-info-label">Τηλέφωνο</div>
+                            <div class="location-info-value" id="location-phone">23920 91455</div>
+                        </div>
+                    </div>
+                    <div class="location-info-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <div>
+                            <div class="location-info-label">Διεύθυνση</div>
+                            <div class="location-info-value" id="location-address">Κ. Σχολάρι, Οχι 5</div>
+                        </div>
+                    </div>
+                    <div class="location-info-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div>
+                            <div class="location-info-label">Ωράριο</div>
+                            <div class="location-info-value" id="location-hours">Τρίτη - Κυριακή 17:00 - 23:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-phone" id="footer-phone">23920 91455</div>
+        <div class="footer-address" id="footer-address">Κ. Σχολάρι, Οχι 5</div>
+        <div class="footer-hours" id="footer-hours">Τρίτη - Κυριακή 17:00 - 23:00</div>
+    </footer>
+
+    <div class="footer-spacer"></div>
+
+    <div class="sticky-call">
+        <a href="tel:2392091455" id="sticky-cta">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Καλέστε Τώρα
+        </a>
+    </div>
+
+    <script>
+        const PAGE_MODE = window.location.pathname.startsWith("/salon") ? "salon" : "delivery";
+        const PRICE_LABEL = PAGE_MODE === "salon" ? "Σαλόνι" : "Delivery";
+        const CREPE_GRID_CATEGORIES = ["savory_crepes", "sweet_crepes"];
+        const CATEGORY_ORDER = ["pizza_32", "burger", "club_sandwich", "pasta", "salads", "appetizers", "savory_crepes", "sweet_crepes", "rofimata", "chymoi", "anapsyktika", "kryo_tsai", "dromos_tou_tsaiou", "smoothies", "granites", "myres", "krasia", "pota", "rtds", "cocktail"];
+        const CATEGORY_LABELS = {
+            pizza_32: "Πίτσα 32cm",
+            burger: "Burger",
+            club_sandwich: "Club Sandwich",
+            pasta: "Ζυμαρικά",
+            salads: "Σαλάτες",
+            appetizers: "Ορεκτικά",
+            savory_crepes: "Κρέπα αλμυρή",
+            sweet_crepes: "Κρέπα γλυκιά",
+            rofimata: "Ροφήματα",
+            chymoi: "Χυμοί",
+            anapsyktika: "Αναψυκτικά",
+            kryo_tsai: "Κρύο τσάι",
+            dromos_tou_tsaiou: "Δρόμος του τσαϊού",
+            smoothies: "Smoothies",
+            granites: "Γρανίτες",
+            myres: "Μπύρες",
+            krasia: "Κρασιά",
+            pota: "Ποτά",
+            rtds: "RTDs",
+            cocktail: "Cocktail"
+        };
+
+        let allMenuItems = [];
+        let selectedCategory = "all";
+
+        function escapeHtml(str) {
+            if (!str) return "";
+            const d = document.createElement("div");
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        function formatPrice(price) {
+            return price.toFixed(2) + "€";
+        }
+
+        function getInStorePrice(item) {
+            if (item.priceInStore != null) return item.priceInStore;
+            if (item.category === "pizza_32" && item.price != null) return item.price + 2;
+            return item.price;
+        }
+
+        function getDisplayPrice(item) {
+            const delivery = item.priceDelivery != null ? item.priceDelivery : item.price;
+            const inStore = getInStorePrice(item);
+            const selected = PAGE_MODE === "salon" ? inStore : delivery;
+            const fallback = PAGE_MODE === "salon" ? delivery : inStore;
+            const value = selected != null ? selected : fallback;
+            if (value == null) return "-";
+            return formatPrice(value);
+        }
+
+        function setActiveViewLink() {
+            document.getElementById("view-delivery").classList.toggle("active", PAGE_MODE === "delivery");
+            document.getElementById("view-salon").classList.toggle("active", PAGE_MODE === "salon");
+        }
+
+        function renderCategoryFilter(grouped) {
+            const container = document.getElementById("category-filter");
+            const available = CATEGORY_ORDER.filter(function(cat) {
+                return grouped[cat] && grouped[cat].length > 0;
+            });
+
+            let html = '<button class="menu-filter-btn' + (selectedCategory === "all" ? " active" : "") + '" data-category="all">Όλα</button>';
+            html += available.map(function(cat) {
+                const activeClass = selectedCategory === cat ? " active" : "";
+                return '<button class="menu-filter-btn' + activeClass + '" data-category="' + cat + '">' + escapeHtml(CATEGORY_LABELS[cat] || cat) + "</button>";
+            }).join("");
+
+            container.innerHTML = html;
+            container.querySelectorAll(".menu-filter-btn").forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    selectedCategory = btn.dataset.category;
+                    renderMenu();
+                });
+            });
+        }
+
+        function renderMenuCategory(category, items) {
+            const sorted = items.slice().sort((a, b) => a.order - b.order);
+            const label = CATEGORY_LABELS[category] || category;
+            const isCrepeGrid = CREPE_GRID_CATEGORIES.includes(category);
+
+            if (isCrepeGrid) {
+                const gridHtml = sorted.map(function(item) {
+                    return '<div class="drink-item">' +
+                        '<span class="drink-name">' + escapeHtml(item.name) + "</span>" +
+                        '<span class="drink-price">' + getDisplayPrice(item) + "</span>" +
+                    "</div>";
+                }).join("");
+
+                return '<div class="menu-category">' +
+                    '<h3 class="category-title">' + escapeHtml(label) + '<span class="category-price-label">' + PRICE_LABEL + "</span></h3>" +
+                    '<div class="drinks-grid">' + gridHtml + "</div>" +
+                "</div>";
+            }
+
+            const itemsHtml = sorted.map(function(item) {
+                return '<div class="menu-item">' +
+                    '<div class="menu-item-info">' +
+                        '<div class="menu-item-name">' + escapeHtml(item.name) + "</div>" +
+                        (item.description ? '<div class="menu-item-desc">' + escapeHtml(item.description) + "</div>" : "") +
+                    "</div>" +
+                    '<div class="menu-item-price">' + getDisplayPrice(item) + "</div>" +
+                "</div>";
+            }).join("");
+
+            return '<div class="menu-category">' +
+                '<h3 class="category-title">' + escapeHtml(label) + '<span class="category-price-label">' + PRICE_LABEL + "</span></h3>" +
+                itemsHtml +
+            "</div>";
+        }
+
+        function renderMenu() {
+            const grouped = {};
+            allMenuItems.forEach(function(item) {
+                if (!grouped[item.category]) grouped[item.category] = [];
+                grouped[item.category].push(item);
+            });
+
+            renderCategoryFilter(grouped);
+
+            let html = "";
+            CATEGORY_ORDER.forEach(function(cat) {
+                if (!grouped[cat] || grouped[cat].length === 0) return;
+                if (selectedCategory !== "all" && selectedCategory !== cat) return;
+                html += renderMenuCategory(cat, grouped[cat]);
+            });
+
+            document.getElementById("menu-list").innerHTML = html || '<div class="loading">Δεν υπάρχουν προϊόντα.</div>';
+        }
+
+        function renderOffers(offers) {
+            const active = offers.filter(function(o) { return o.active; });
+            const section = document.getElementById("offers-section");
+            if (active.length === 0) {
+                section.style.display = "none";
+                return;
+            }
+            section.style.display = "";
+            document.getElementById("offers-list").innerHTML = active.map(function(o) {
+                return '<div class="offer-item">' + escapeHtml(o.title) + "</div>";
+            }).join("");
+        }
+
+        function updateInfo(info) {
+            const phoneClean = info.phone.replace(/\s/g, "");
+            document.getElementById("hero-phone").textContent = info.phone;
+            document.getElementById("hero-address").textContent = info.address;
+            document.getElementById("hero-hours").textContent = info.hours;
+            document.getElementById("footer-phone").textContent = info.phone;
+            document.getElementById("footer-address").textContent = info.address;
+            document.getElementById("footer-hours").textContent = info.hours;
+            document.getElementById("location-phone").innerHTML = '<a href="tel:' + phoneClean + '">' + escapeHtml(info.phone || "") + "</a>";
+            document.getElementById("location-address").textContent = info.address || "";
+            document.getElementById("location-hours").textContent = info.hours || "";
+            document.getElementById("hero-cta").href = "tel:" + phoneClean;
+            document.getElementById("sticky-cta").href = "tel:" + phoneClean;
+
+            const mapContainer = document.getElementById("location-map-container");
+            let mapsUrl = (info.mapsEmbedUrl || "").trim();
+            if (!mapsUrl) {
+                mapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.8563626315936!2d23.02620497583847!3d40.43417937143677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a86b689b3117eb%3A0xf33e77d9ba74211f!2sRE%CE%92EL%CE%94E%20Rebelde%20espresso%20and%20cocktails!5e0!3m2!1sen!2sgr!4v1771347413554!5m2!1sen!2sgr";
+            }
+            const address = (info.address || "").trim();
+            if (mapsUrl) {
+                mapContainer.innerHTML = '<iframe class="location-map" src="' + mapsUrl.replace(/"/g, "&quot;") + '" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Reβelδe Location"></iframe>';
+            } else if (address) {
+                const mapsSearchUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address);
+                mapContainer.innerHTML = '<a href="' + mapsSearchUrl + '" target="_blank" rel="noopener noreferrer" class="location-map-link" id="location-map-link">' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' +
+                    "Άνοιγμα στο Google Maps</a>";
+            }
+        }
+
+        function renderMinimumOrders(entries) {
+            const list = document.getElementById("location-min-order-list");
+            if (!entries || entries.length === 0) {
+                list.innerHTML = '<div style="color:rgba(252,251,247,0.5);font-size:0.85rem;">Δεν υπάρχουν περιοχές.</div>';
+                return;
+            }
+            const sorted = entries.slice().sort(function(a, b) { return a.order - b.order; });
+            list.innerHTML = sorted.map(function(e) {
+                return '<div class="location-min-order-item">' +
+                    '<span class="location-min-order-area">' + escapeHtml(e.area) + "</span>" +
+                    '<span class="location-min-order-amount">' + e.amount.toFixed(2) + "€</span>" +
+                    "</div>";
+            }).join("");
+        }
+
+        function loadData() {
+            fetch("/api/menu")
+                .then(function(r) { return r.json(); })
+                .then(function(items) {
+                    allMenuItems = items || [];
+                    renderMenu();
+                })
+                .catch(function() {
+                    document.getElementById("menu-list").innerHTML = '<div class="loading">Σφάλμα φόρτωσης μενού.</div>';
+                });
+
+            fetch("/api/offers")
+                .then(function(r) { return r.json(); })
+                .then(renderOffers)
+                .catch(function() {
+                    document.getElementById("offers-section").style.display = "none";
+                });
+
+            fetch("/api/info")
+                .then(function(r) { return r.json(); })
+                .then(updateInfo)
+                .catch(function() {});
+
+            fetch("/api/minimum-orders")
+                .then(function(r) { return r.json(); })
+                .then(renderMinimumOrders)
+                .catch(function() {
+                    document.getElementById("location-min-order-list").innerHTML = '<div class="loading" style="padding:0.5rem 0;font-size:0.85rem;">Σφάλμα φόρτωσης.</div>';
+                });
+        }
+
+        setActiveViewLink();
+        loadData();
+    </script>
+</body>
+</html>
