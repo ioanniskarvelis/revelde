@@ -836,8 +836,14 @@
 
             renderCategoryFilter(grouped);
 
+            const known = new Set(CATEGORY_ORDER);
+            const dynamicCategories = Object.keys(grouped).filter(function(cat) {
+                return !known.has(cat);
+            }).sort();
+            const renderOrder = CATEGORY_ORDER.concat(dynamicCategories);
+
             let html = "";
-            CATEGORY_ORDER.forEach(function(cat) {
+            renderOrder.forEach(function(cat) {
                 if (!grouped[cat] || grouped[cat].length === 0) return;
                 if (selectedCategory !== "all" && selectedCategory !== cat) return;
                 html += renderMenuCategory(cat, grouped[cat]);
