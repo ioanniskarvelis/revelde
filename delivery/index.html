@@ -736,8 +736,10 @@
             cocktail: "Cocktail"
         };
 
+        const DATA_REFRESH_INTERVAL_MS = 30000;
         let allMenuItems = [];
         let selectedCategory = "all";
+        let refreshTimer = null;
 
         function escapeHtml(str) {
             if (!str) return "";
@@ -941,8 +943,34 @@
                 });
         }
 
+        function startAutoRefresh() {
+            if (refreshTimer !== null) return;
+            refreshTimer = window.setInterval(function() {
+                if (document.visibilityState !== "visible") return;
+                loadData();
+            }, DATA_REFRESH_INTERVAL_MS);
+        }
+
+        function stopAutoRefresh() {
+            if (refreshTimer === null) return;
+            window.clearInterval(refreshTimer);
+            refreshTimer = null;
+        }
+
+        document.addEventListener("visibilitychange", function() {
+            if (document.visibilityState === "visible") {
+                loadData();
+                startAutoRefresh();
+                return;
+            }
+            stopAutoRefresh();
+        });
+
+        window.addEventListener("beforeunload", stopAutoRefresh);
+
         setActiveViewLink();
         loadData();
+        startAutoRefresh();
     </script>
 </body>
 </html>
