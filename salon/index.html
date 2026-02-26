@@ -308,6 +308,57 @@
             white-space: nowrap;
         }
 
+        .burger-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid rgba(33, 29, 24, 0.35);
+            font-size: 0.92rem;
+            background: rgba(252, 251, 247, 0.65);
+        }
+
+        .burger-table th,
+        .burger-table td {
+            border: 1px solid rgba(33, 29, 24, 0.35);
+            padding: 0.65rem 0.55rem;
+            vertical-align: top;
+        }
+
+        .burger-table th {
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            color: rgba(33, 29, 24, 0.7);
+            font-weight: 700;
+            text-align: center;
+            background: rgba(33, 29, 24, 0.05);
+        }
+
+        .burger-item-cell {
+            width: 55%;
+        }
+
+        .burger-item-name {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            color: var(--black);
+        }
+
+        .burger-item-desc {
+            font-size: 0.84rem;
+            line-height: 1.45;
+            color: rgba(33, 29, 24, 0.7);
+            font-style: italic;
+        }
+
+        .burger-price-cell {
+            width: 15%;
+            text-align: center;
+            font-weight: 700;
+            white-space: nowrap;
+            vertical-align: middle !important;
+        }
+
         .drinks-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -803,6 +854,10 @@
             const label = CATEGORY_LABELS[category] || category;
             const isCrepeGrid = CREPE_GRID_CATEGORIES.includes(category);
 
+            if (category === "burger") {
+                return renderBurgerCategory(label, sorted);
+            }
+
             if (isCrepeGrid) {
                 const gridHtml = sorted.map(function(item) {
                     return '<div class="drink-item">' +
@@ -830,6 +885,83 @@
             return '<div class="menu-category">' +
                 '<h3 class="category-title">' + escapeHtml(label) + '<span class="category-price-label">' + PRICE_LABEL + "</span></h3>" +
                 itemsHtml +
+            "</div>";
+        }
+
+        function getBurgerVariant(name) {
+            const n = (name || "").toLowerCase();
+            if (/2x\s*120/.test(n) || /x120/.test(n)) return "2x120";
+            if (/200\s*gr/.test(n)) return "200";
+            if (/120\s*gr/.test(n)) return "120";
+            return null;
+        }
+
+        function getBurgerBaseName(name) {
+            return (name || "")
+                .replace(/\s*\(\s*2x\s*120\s*gr\s*\)\s*$/i, "")
+                .replace(/\s*\(\s*2x120gr\s*\)\s*$/i, "")
+                .replace(/\s*\(\s*200\s*gr\s*\)\s*$/i, "")
+                .replace(/\s*\(\s*120\s*gr\s*\)\s*$/i, "")
+                .trim();
+        }
+
+        function renderBurgerCategory(label, sortedItems) {
+            const grouped = [];
+            const byName = Object.create(null);
+
+            sortedItems.forEach(function(item) {
+                const variant = getBurgerVariant(item.name);
+                const baseName = variant ? getBurgerBaseName(item.name) : item.name;
+                if (!byName[baseName]) {
+                    byName[baseName] = {
+                        name: baseName,
+                        description: item.description || "",
+                        prices: { "120": "", "200": "", "2x120": "" },
+                        single: ""
+                    };
+                    grouped.push(byName[baseName]);
+                }
+
+                const entry = byName[baseName];
+                if (!entry.description && item.description) entry.description = item.description;
+                const displayPrice = getDisplayPrice(item);
+                if (variant) {
+                    entry.prices[variant] = displayPrice;
+                } else {
+                    entry.single = displayPrice;
+                }
+            });
+
+            const rowsHtml = grouped.map(function(entry) {
+                const hasVariants = entry.prices["120"] || entry.prices["200"] || entry.prices["2x120"];
+                const firstCell = '<td class="burger-item-cell"><div class="burger-item-name">' + escapeHtml(entry.name) + '</div>' +
+                    (entry.description ? '<div class="burger-item-desc">' + escapeHtml(entry.description) + "</div>" : "") +
+                    "</td>";
+
+                if (!hasVariants) {
+                    return "<tr>" + firstCell +
+                        '<td class="burger-price-cell" colspan="3">' + escapeHtml(entry.single || "-") + "</td>" +
+                        "</tr>";
+                }
+
+                return "<tr>" + firstCell +
+                    '<td class="burger-price-cell">' + escapeHtml(entry.prices["120"] || "-") + "</td>" +
+                    '<td class="burger-price-cell">' + escapeHtml(entry.prices["200"] || "-") + "</td>" +
+                    '<td class="burger-price-cell">' + escapeHtml(entry.prices["2x120"] || "-") + "</td>" +
+                    "</tr>";
+            }).join("");
+
+            return '<div class="menu-category">' +
+                '<h3 class="category-title">' + escapeHtml(label) + '<span class="category-price-label">' + PRICE_LABEL + "</span></h3>" +
+                '<table class="burger-table">' +
+                    "<thead><tr>" +
+                        "<th>Είδος</th>" +
+                        "<th>120gr</th>" +
+                        "<th>200gr</th>" +
+                        "<th>2x120gr</th>" +
+                    "</tr></thead>" +
+                    "<tbody>" + rowsHtml + "</tbody>" +
+                "</table>" +
             "</div>";
         }
 
