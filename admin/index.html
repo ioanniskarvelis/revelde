@@ -609,23 +609,47 @@
     }
 
     // --- API ---
+    function parseApiResponse(r) {
+        return r.json().catch(function() { return {}; }).then(function(payload) {
+            if (r.ok) return payload;
+            var message = payload && payload.error ? payload.error : ("Request failed (" + r.status + ")");
+            var err = new Error(message);
+            err.status = r.status;
+            throw err;
+        });
+    }
+
+    function handleApiError(err) {
+        // Invalid/expired token should force a new login instead of fake-success toasts.
+        if (err && err.status === 401) {
+            clearToken();
+            showLogin();
+        }
+        throw err;
+    }
+
     function apiGet(url) {
-        return fetch(url, { headers: authHeaders() }).then(function(r) { return r.json(); });
+        return fetch(url, { headers: authHeaders() })
+            .then(parseApiResponse)
+            .catch(handleApiError);
     }
 
     function apiPost(url, data) {
         return fetch(url, { method: "POST", headers: authHeaders(), body: JSON.stringify(data) })
-            .then(function(r) { return r.json(); });
+            .then(parseApiResponse)
+            .catch(handleApiError);
     }
 
     function apiPut(url, data) {
         return fetch(url, { method: "PUT", headers: authHeaders(), body: JSON.stringify(data) })
-            .then(function(r) { return r.json(); });
+            .then(parseApiResponse)
+            .catch(handleApiError);
     }
 
     function apiDelete(url) {
         return fetch(url, { method: "DELETE", headers: authHeaders() })
-            .then(function(r) { return r.json(); });
+            .then(parseApiResponse)
+            .catch(handleApiError);
     }
 
     // --- Auth ---
