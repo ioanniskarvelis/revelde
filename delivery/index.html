@@ -758,12 +758,16 @@
             return item.price;
         }
 
-        function getDisplayPrice(item) {
+        function getModePrice(item) {
             const delivery = item.priceDelivery != null ? item.priceDelivery : item.price;
             const inStore = getInStorePrice(item);
             const selected = PAGE_MODE === "salon" ? inStore : delivery;
             const fallback = PAGE_MODE === "salon" ? delivery : inStore;
-            const value = selected != null ? selected : fallback;
+            return selected != null ? selected : fallback;
+        }
+
+        function getDisplayPrice(item) {
+            const value = getModePrice(item);
             if (value == null) return "-";
             return formatPrice(value);
         }
@@ -832,6 +836,8 @@
         function renderMenu() {
             const grouped = {};
             allMenuItems.forEach(function(item) {
+                const modePrice = getModePrice(item);
+                if (modePrice == null || modePrice <= 0) return;
                 if (!grouped[item.category]) grouped[item.category] = [];
                 grouped[item.category].push(item);
             });
